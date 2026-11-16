@@ -3,283 +3,937 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Piedra Clara Reformas · Baños y cocinas</title>
-<meta name="description" content="Demostración de una página de captación de solicitudes de presupuesto para reformas de baños y cocinas.">
-<link rel="stylesheet" href="styles.css">
+<title>LeadFlow Recovery</title>
+<style>
+:root{--ink:#1f2a33;--mute:#66737d;--bg:#f4f5f3;--card:#fff;--line:#e2e5e1;--acc:#1f6f6b;--acc2:#e6f1f0;--red:#b3402f;--amb:#b7791f;--r:10px}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+body{font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);background:var(--bg);display:flex;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+aside{width:230px;background:#1b2a30;color:#dfe8e6;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.logo{font-size:18px;font-weight:700;padding:0 10px 18px;color:#fff}
+.logo small{display:block;font-weight:400;font-size:12px;color:#9fb3b0}
+nav button{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;background:none;border:0;color:inherit;padding:10px;border-radius:8px;cursor:pointer}
+nav button:hover{background:#26393f}
+nav button.on{background:var(--acc);color:#fff}
+.badge{background:var(--red);color:#fff;border-radius:99px;font-size:12px;padding:0 8px}
+main{flex:1;padding:28px;max-width:1120px;min-width:0}
+h1{font-size:24px;margin-bottom:4px}
+h3{font-size:15px;margin:18px 0 8px;display:flex;justify-content:space-between;align-items:center}
+.sub{color:var(--mute);margin-bottom:20px}
+.mute,small{color:var(--mute)}
+small{font-size:13px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.1)}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.del{background:#fff;color:var(--red);border:1px solid var(--line)}
+.btn.sm{padding:4px 10px;font-size:13px;font-weight:500}
+.link{background:none;border:0;cursor:pointer;text-align:left;color:var(--acc);padding:0;font-weight:600}
+.link:hover{text-decoration:underline}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.stat{border-left:4px solid var(--c,var(--acc))}
+.stat b{display:block;font-size:26px;line-height:1.15}
+.stat span{display:block;font-size:13px;font-weight:600;margin-top:2px}
+.stat small{display:block}
+.stat.warn b{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.panel h2{font-size:16px;margin-bottom:12px}
+.bar{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.bar i{flex:1;height:9px;background:var(--bg);border-radius:9px;overflow:hidden}
+.bar u{display:block;height:100%;border-radius:9px}
+.bar em{font-style:normal;width:140px}.bar s{text-decoration:none;width:24px;text-align:right;font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.kv:first-of-type{border-top:0}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.grow{flex:1;min-width:0}
+.isdone b{text-decoration:line-through;color:var(--mute)}
+.chk{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:#fff;cursor:pointer;color:#fff;font-size:13px;line-height:1;flex:none}
+.chk:hover{border-color:var(--acc)}
+.isdone .chk{background:var(--acc);border-color:var(--acc)}
+.when{text-align:right;font-size:14px;white-space:nowrap}
+.late{color:var(--red);font-weight:600}.today{color:var(--amb);font-weight:600}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.tools input,.tools select,dialog input,dialog select,dialog textarea{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;width:100%}
+.tools input{flex:2;min-width:200px;width:auto}.tools select{flex:1;min-width:130px;width:auto}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.chips span{background:var(--acc2);color:var(--acc);border-radius:99px;padding:3px 14px;font-size:14px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:13px;color:var(--mute);font-weight:600;background:#fafbf9}
+tr:last-child td{border-bottom:0}
+td .link{display:flex;align-items:center;gap:10px}
+td .link small{display:block;font-weight:400}
+.av{width:34px;height:34px;border-radius:50%;background:var(--acc2);color:var(--acc);display:inline-grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.s0{background:#e8eefb;color:#2c4f9e}.s1{background:#fdf1dc;color:#8a5a0c}.s2{background:#efe6f8;color:#6b3a96}.s3{background:var(--acc2);color:var(--acc)}.s4{background:#e9ebe8;color:#505a52}
+.acts{display:flex;gap:6px;justify-content:flex-end}
+.empty{text-align:center;color:var(--mute);padding:22px}
+dialog{border:0;border-radius:14px;padding:0;width:min(580px,94vw);max-height:92vh;box-shadow:0 20px 60px #0004}
+#dtl{width:min(740px,96vw)}#dtk{width:min(440px,94vw)}
+dialog::backdrop{background:#0006}
+form{padding:22px;display:grid;gap:12px;grid-template-columns:1fr 1fr}
+form h2{grid-column:1/-1;font-size:19px}
+form label,.lbl{font-size:13px;color:var(--mute);display:grid;gap:4px}
+.full{grid-column:1/-1}
+.foot{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+.foot div{display:flex;gap:8px;margin-left:auto}
+#dtlb{padding:22px}
+.dh{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.dh h2{font-size:20px}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;background:var(--bg);border-radius:var(--r);padding:14px;margin-bottom:6px}
+.info small{display:block}
+.qs{display:flex;align-items:center;gap:10px;margin:12px 0 0}.qs select{width:auto}
+.nrow{display:flex;gap:8px;margin-bottom:8px}
+.notes p{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:16px}
+.tl p{position:relative;padding:5px 0;font-size:14px}
+.tl p::before{content:"";position:absolute;left:-23px;top:12px;width:10px;height:10px;border-radius:50%;background:var(--acc);border:2px solid #fff}
+.tl small{display:block}
+.isc b{color:var(--mute)}.isc .chk{display:inline-grid;place-items:center;cursor:default;color:var(--mute);background:var(--bg)}
+.defs{font-size:14px;margin-bottom:16px}.defs summary{cursor:pointer;font-weight:600;color:var(--acc)}.defs dl{display:grid;grid-template-columns:210px 1fr;gap:6px 14px;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}.defs dt{font-weight:600}.defs dd{color:var(--mute)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:6px 0 16px;flex-wrap:wrap}
+.tabs button{background:none;border:0;padding:10px 14px;cursor:pointer;color:var(--mute);border-bottom:3px solid transparent;font-weight:600}
+.tabs button.on{color:var(--acc);border-color:var(--acc)}
+.lv{display:inline-block;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.lv-c{background:#dff0e4;color:#1d6b3a}.lv-o{background:#e8eefb;color:#2c4f9e}.lv-e{background:#fdf1dc;color:#8a5a0c}.lv-n{background:#f6e3df;color:var(--red)}
+.area{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px}
+.area>summary{padding:14px 16px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.area .in{padding:0 16px 16px}
+.mute{color:var(--mute);font-weight:400;font-size:14px}
+.qa{margin:14px 0}.qa>label{font-size:14px;font-weight:600;color:var(--ink);display:block;margin-bottom:4px}
+.fi{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff}
+.lbl{display:grid;gap:4px;font-size:13px;color:var(--mute)}
+.qr{display:grid;grid-template-columns:210px 1fr;gap:8px;margin-top:6px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fg .full{grid-column:1/-1}
+.ferr{color:var(--red);font-size:12.5px}
+.fi[aria-invalid=true]{border-color:var(--red)}
+.legend{display:grid;gap:6px;font-size:13.5px;color:var(--mute);margin:12px 0}
+.defs ul{margin:8px 0 0 18px}.defs li.w{color:var(--amb)}.defs li.e{color:var(--red)}.defs>div{padding-top:4px}
+.repbar{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-bottom:12px}
+#dit{width:min(600px,94vw)}#drp{width:min(920px,96vw)}
+@media(max-width:760px){.qr,.fg{grid-template-columns:1fr}}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1b2a30;color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;z-index:99;box-shadow:0 6px 24px #0004;max-width:92vw}
+#toast.err{background:var(--red)}
+@media(max-width:760px){
+ body{flex-direction:column}
+ aside{width:100%;height:auto;position:static;flex-direction:row;align-items:center;padding:10px;gap:4px;overflow-x:auto}
+ .logo{padding:0 8px 0 4px;white-space:nowrap;font-size:16px}.logo small{display:none}
+ nav{display:flex;gap:4px}nav button{white-space:nowrap;gap:8px}
+ main{padding:16px}
+ .grid2{grid-template-columns:1fr}
+ table,thead,tbody,tr,td{display:block}thead{display:none}
+ table{background:none;border:0}
+ tr{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;padding:8px 12px}
+ td{border:0;padding:4px 0}
+ td[data-l]::before{content:attr(data-l)": ";color:var(--mute);font-size:13px}
+ .acts{justify-content:flex-start;margin-top:6px}
+ form{grid-template-columns:1fr}
+ .info{grid-template-columns:1fr 1fr}
+ .item{flex-wrap:wrap}.when{text-align:left}
+ .bar em{width:110px}
+ .defs dl{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
+<aside>
+ <div class="logo">LeadFlow Recovery<small>CRM para reformas</small></div>
+ <nav>
+  <button data-v="dash" class="on">Panel</button>
+  <button data-v="clients">Clientes</button>
+  <button data-v="tasks">Tareas <span class="badge" id="tb" hidden></span></button>
+  <button data-v="studies">Estudios de empresas</button>
+  <button data-v="backup">Copia de seguridad</button>
+ </nav>
+</aside>
+<main id="main"></main>
+<dialog id="dit"><form id="dit-f" method="dialog" novalidate><h2 id="dit-t"></h2><div id="dit-fields" class="full" style="display:grid;gap:12px"></div>
+ <div class="foot"><button type="button" class="btn del" id="dit-del" data-a="st-idel" hidden>Eliminar</button><div><button type="button" class="btn sec" data-a="close">Cancelar</button><button class="btn" id="dit-ok">Guardar</button></div></div></form></dialog>
+<dialog id="drp" aria-label="Informe del estudio"><div class="dbody"><div class="repbar"><button class="btn sm" data-a="st-print">Imprimir / PDF</button><button class="btn sm sec" data-a="st-dl">Descargar (HTML)</button><button class="btn sm sec" data-a="close">Cerrar</button></div><div class="rep" id="drp-body"></div></div></dialog>
+<input type="file" id="stfile" accept=".json,application/json" hidden>
+<div id="toast" hidden role="status"></div>
+<input type="file" id="file" accept=".json,application/json" hidden>
 
-<div class="demo">Demostración local · empresa y datos ficticios · nada se envía a ningún servidor</div>
-
-<header>
- <div class="wrap">
-  <a class="brand" href="#inicio" aria-label="Piedra Clara Reformas, inicio">
-   <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
-    <rect width="34" height="34" rx="8" fill="#1f6f6b"/>
-    <rect x="7" y="7" width="9" height="9" rx="2" fill="#fff"/>
-    <rect x="18" y="7" width="9" height="9" rx="2" fill="#fff" opacity=".55"/>
-    <rect x="7" y="18" width="9" height="9" rx="2" fill="#fff" opacity=".55"/>
-    <rect x="18" y="18" width="9" height="9" rx="2" fill="#fff"/>
-   </svg>
-   <span>Piedra Clara<small>Reformas de baños y cocinas</small></span>
-  </a>
-  <nav aria-label="Principal">
-   <a href="#servicios">Servicios</a>
-   <a href="#como-funciona">Cómo funciona</a>
-   <a class="btn sm" href="#solicitar">Pedir presupuesto</a>
-  </nav>
- </div>
-</header>
-
-<div id="public">
-
-<section class="hero" id="inicio">
- <div class="wrap">
-  <h1>Tu baño o tu cocina, renovados sin complicaciones</h1>
-  <p>Cuéntanos tu proyecto y te prepararemos un presupuesto claro y por escrito. Sin compromiso.</p>
-  <a class="btn lg" href="#solicitar">Solicitar presupuesto</a>
-  <small>Respuesta en 1 o 2 días laborables (texto de ejemplo de la demostración)</small>
- </div>
-</section>
-
-<section class="block" id="servicios">
- <div class="wrap">
-  <h2>Nuestros servicios</h2>
-  <p class="lead">Nos ocupamos de la obra de principio a fin para que tú solo decidas cómo quieres que quede.</p>
-
-  <div class="grid3">
-   <article class="card">
-    <div class="ic">
-     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M3 12h18v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3z"/>
-      <path d="M6 12V6a2 2 0 0 1 4 0"/>
-      <path d="M7 19l-1 2M17 19l1 2"/>
-     </svg>
-    </div>
-    <h3>Reformas de baños</h3>
-    <p>Cambio de bañera por ducha, alicatados, sanitarios, grifería y mamparas. Soluciones para baños pequeños y accesibles.</p>
-   </article>
-
-   <article class="card">
-    <div class="ic">
-     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="16" rx="2"/>
-      <path d="M3 10h18M9 4v6M7 15h2M15 15h2"/>
-     </svg>
-    </div>
-    <h3>Reformas de cocinas</h3>
-    <p>Muebles a medida, encimeras, electrodomésticos, instalación eléctrica y de fontanería. Cocinas abiertas o cerradas.</p>
-   </article>
-
-   <article class="card">
-    <div class="ic">
-     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M3 11l9-7 9 7"/>
-      <path d="M5 10v10h14V10M10 20v-6h4v6"/>
-     </svg>
-    </div>
-    <h3>Reformas integrales</h3>
-    <p>Renovamos toda la vivienda: suelos, pintura, electricidad, baños y cocina, con un único interlocutor y un calendario.</p>
-   </article>
-  </div>
- </div>
-</section>
-
-<section class="block alt" id="como-funciona">
- <div class="wrap">
-  <h2>Cómo funciona</h2>
-  <p class="lead">Un proceso sencillo y sin sorpresas.</p>
-
-  <div class="steps">
-   <div class="step">
-    <h3>Cuéntanos tu proyecto</h3>
-    <p>Rellena el formulario en un par de minutos.</p>
-   </div>
-   <div class="step">
-    <h3>Te contactamos</h3>
-    <p>Revisamos tu solicitud y te llamamos para concretar detalles.</p>
-   </div>
-   <div class="step">
-    <h3>Presupuesto por escrito</h3>
-    <p>Desglosado, con plazos y sin compromiso.</p>
-   </div>
-   <div class="step">
-    <h3>Planificamos la obra</h3>
-    <p>Si te encaja, acordamos fechas y empezamos.</p>
-   </div>
-  </div>
- </div>
-</section>
-
-<section class="block" id="solicitar">
- <div class="wrap">
-
-  <div style="text-align:center;margin-bottom:24px">
-   <h2>Solicita tu presupuesto</h2>
-   <p class="lead" style="margin:0 auto">
-    Los campos marcados con <i style="color:var(--red);font-style:normal">*</i> son obligatorios.
-    Para esta demostración, usa solo datos ficticios.
-   </p>
-  </div>
-
-  <div class="card formcard">
-   <form id="form" novalidate>
-
-    <div class="alert err" id="f-alert" role="alert" hidden></div>
-
-    <div class="fgrid" style="margin-top:4px">
-
-     <div class="field">
-      <label for="f-name">Nombre <i>*</i></label>
-      <input id="f-name" autocomplete="name" maxlength="100" aria-describedby="e-name" placeholder="Ej.: Carmen Ficticia">
-      <p class="err" id="e-name"></p>
-     </div>
-
-     <div class="field">
-      <label for="f-phone">Teléfono <i>*</i></label>
-      <input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="e-phone" placeholder="Ej.: 600 000 001">
-      <p class="err" id="e-phone"></p>
-     </div>
-
-     <div class="field">
-      <label for="f-city">Localidad <i>*</i></label>
-      <input id="f-city" autocomplete="address-level2" maxlength="80" aria-describedby="e-city" placeholder="Ej.: Ciudad Ejemplo">
-      <p class="err" id="e-city"></p>
-     </div>
-
-     <!-- DESPLEGABLE TIPO DE REFORMA -->
-     <div class="field">
-      <label for="f-type">Tipo de reforma <i>*</i></label>
-      <select id="f-type" aria-describedby="e-type">
-       <option value="">Selecciona…</option>
-       <option value="Reforma de baño">Reforma de baño</option>
-       <option value="Reforma de cocina">Reforma de cocina</option>
-       <option value="Reforma integral">Reforma integral</option>
-      </select>
-      <p class="err" id="e-type"></p>
-     </div>
-
-     <div class="field full">
-      <label for="f-desc">Descripción del proyecto <i>*</i></label>
-      <textarea id="f-desc" maxlength="1000" aria-describedby="e-description cnt" placeholder="Medidas aproximadas, qué quieres cambiar, estilo que te gusta…"></textarea>
-      <div class="hint">
-       <span class="err" id="e-description"></span>
-       <span id="cnt">0/1000</span>
-      </div>
-     </div>
-
-     <!-- DESPLEGABLE PLAZO DE LA REFORMA -->
-     <div class="field full">
-      <label for="f-time">Plazo aproximado para realizar la reforma <i>*</i></label>
-      <select id="f-time" aria-describedby="e-timeframe">
-       <option value="">Selecciona…</option>
-       <option value="Lo antes posible">Lo antes posible</option>
-       <option value="En 1 a 3 meses">En 1 a 3 meses</option>
-       <option value="En 3 a 6 meses">En 3 a 6 meses</option>
-       <option value="Más de 6 meses">Más de 6 meses</option>
-       <option value="Solo me estoy informando">Solo me estoy informando</option>
-      </select>
-      <p class="err" id="e-timeframe"></p>
-     </div>
-
-     <div class="field full" style="position:absolute;left:-9999px" aria-hidden="true">
-      <label>No rellenar<input id="f-web" tabindex="-1" autocomplete="off"></label>
-     </div>
-
-     <div class="field full">
-      <details>
-       <summary>Información de privacidad (demostración)</summary>
-       <ul>
-        <li><b>Finalidad:</b> registrar tu solicitud de presupuesto en esta demostración.</li>
-        <li><b>Dónde se guarda:</b> solo en este navegador (almacenamiento local). No se envía a ningún servidor.</li>
-        <li><b>Conservación:</b> hasta que borres los datos del navegador o vacíes las solicitudes en el área de administración de la demo.</li>
-        <li><b>Datos:</b> usa únicamente datos ficticios. Este texto es un ejemplo y deberá sustituirse por la política de privacidad real, revisada por un profesional, antes de usar el formulario con clientes.</li>
-       </ul>
-      </details>
-     </div>
-
-     <div class="field full">
-      <label class="consent" for="f-consent">
-       <input type="checkbox" id="f-consent" aria-describedby="e-consent">
-       <span>He leído la información de privacidad y acepto que esta demostración guarde mi solicitud en este navegador. <i>*</i></span>
-      </label>
-      <p class="err" id="e-consent"></p>
-     </div>
-
-     <div class="field full">
-      <button class="btn lg" id="f-send" type="submit">Enviar solicitud</button>
-     </div>
-
-    </div>
-   </form>
-
-   <div class="ok" id="ok" role="status" hidden>
-    <div class="tick" aria-hidden="true">✓</div>
-    <h3>Solicitud registrada</h3>
-    <div class="ref" id="ok-ref"></div>
-    <p>Es una demostración: la solicitud se ha guardado solo en este navegador y no se ha enviado a ninguna empresa ni servidor.</p>
-    <p style="margin-top:16px">
-     <button class="btn sec" id="again" type="button">Enviar otra solicitud</button>
-    </p>
-   </div>
-
-  </div>
- </div>
-</section>
-</div>
-
-<main id="admin" class="admin" hidden>
- <div class="wrap">
-
-  <div class="top">
-   <div>
-    <h1 style="font-size:26px">Solicitudes recibidas</h1>
-    <p class="sub">Área de administración de demostración.</p>
-   </div>
-   <a class="btn sec" href="#inicio">← Volver a la web</a>
-  </div>
-
-  <div class="note">
-   <b>Sin autenticación:</b> esta pantalla es solo una demostración y cualquier persona con acceso al navegador puede verla. En producción necesitará inicio de sesión y permisos.
-  </div>
-
-  <div class="note bad" id="a-err" role="alert" hidden>
-   <span id="a-err-t"></span>
-   <button class="btn sec sm" id="a-retry" type="button">Reintentar</button>
-  </div>
-
-  <div class="stats" id="a-stats"></div>
-
-  <div class="tools">
-   <input id="a-q" type="search" placeholder="Buscar por nombre, localidad o referencia" aria-label="Buscar">
-   <select id="a-fst" aria-label="Filtrar por estado"></select>
-  </div>
-
-  <div id="a-list"></div>
-
-  <p style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-   <button class="btn sec sm" id="a-seed" type="button">Restaurar solicitudes de ejemplo</button>
-   <button class="btn del sm" id="a-clear" type="button">Vaciar solicitudes</button>
-  </p>
-
- </div>
-</main>
-
-<dialog id="dlg" aria-label="Detalle de la solicitud">
- <div class="dbody" id="dbody"></div>
+<dialog id="dlg">
+ <form id="f" method="dialog">
+  <h2 id="ft">Nuevo cliente</h2>
+  <label class="full">Nombre<input id="name" required maxlength="100"></label>
+  <label>Teléfono<input id="phone" type="tel" required maxlength="30"></label>
+  <label>Localidad<input id="city" required maxlength="80"></label>
+  <label>Tipo de reforma<select id="type"></select></label>
+  <label>Estado<select id="status"></select></label>
+  <label id="rw" hidden>Resultado del cierre<select id="result"></select></label>
+  <label>Origen de la solicitud<select id="source"></select></label>
+  <label>Importe estimado del presupuesto (€)<input id="amount" type="number" min="0" max="100000000" step="50" placeholder="0"></label>
+  <label class="full" id="fw">Primer seguimiento (opcional)<input id="follow" type="date"></label>
+  <label class="full">Añadir nota<textarea id="note" rows="2" maxlength="1000" placeholder="Ej.: Quiere cambiar la bañera por plato de ducha"></textarea></label>
+  <div class="foot"><div><button type="button" class="btn sec" data-a="close">Cancelar</button><button class="btn">Guardar cliente</button></div></div>
+ </form>
 </dialog>
 
-<footer>
- <div class="wrap">
-  © Piedra Clara Reformas (empresa ficticia de demostración) · Módulo LeadFlow Acquisition ·
-  <a href="#admin">Administración (demo)</a>
+<dialog id="dtl"><div id="dtlb"></div></dialog>
+
+<dialog id="dtk">
+ <form id="ftk" method="dialog">
+  <h2 id="tkh">Nueva tarea</h2>
+  <label class="full">Cliente<select id="tkc"></select></label>
+  <label class="full">Tarea<input id="tkt" required maxlength="150" placeholder="Ej.: Llamar para confirmar presupuesto"></label>
+  <label class="full">Fecha<input id="tkd" type="date" required></label>
+  <div class="foot"><button type="button" class="btn del" id="tkdel" data-a="dtask">Eliminar</button><div><button type="button" class="btn sec" data-a="close">Cancelar</button><button class="btn">Guardar</button></div></div>
+ </form>
+</dialog>
+
+<script>
+const STATUS=["Nuevo","Contactado","Presupuesto enviado","En seguimiento","Cerrado"];
+const COL=["#2c4f9e","#b7791f","#6b3a96","#1f6f6b","#6b756d"];
+const TYPES=["Baño","Cocina","Baño y cocina"];
+const SOURCES=["Web","Teléfono","Recomendación","Redes sociales","Otro"];
+const RESULTS=["Ganado","Perdido"];
+const K1="leadflow_recovery_v1",K2="leadflow_recovery_v2";
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const inDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>s?new Date(s+"T00:00").toLocaleDateString("es-ES",{day:"numeric",month:"short"}):"—";
+const fd=s=>new Date(s).toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
+const fdt=s=>s?new Date(s).toLocaleString("es-ES",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"";
+const eur=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n||0);
+let _u=0;const uid=()=>Date.now().toString(36)+(++_u).toString(36)+Math.random().toString(36).slice(2,6);
+const ts=()=>new Date().toISOString();
+const pct=(a,b)=>b?Math.round(a/b*100)+"%":"—";
+const ini=n=>n.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
+const av=n=>`<span class="av">${esc(ini(n))}</span>`;
+const pill=(s,r)=>`<span class="pill s${STATUS.indexOf(s)}">${esc(s)}${r?" · "+esc(r):""}</span>`;
+const opts=(a,sel)=>a.map(x=>`<option ${x===sel?"selected":""}>${esc(x)}</option>`).join("");
+const dcls=d=>d<inDays(0)?"late":d===inDays(0)?"today":"";
+const dtxt=d=>d<inDays(0)?"Vencida · "+fmt(d):d===inDays(0)?"Hoy":fmt(d);
+
+/* ---------- Datos ---------- */
+/*PURE-START*/
+const MAXI={clients:5000,sub:2000};
+const clean=(v,n)=>String(v==null?"":v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,"").trim().slice(0,n);
+const okId=s=>typeof s==="string"&&/^[A-Za-z0-9_-]{1,40}$/.test(s);
+const okDate=s=>{if(typeof s!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(s))return false;const y=+s.slice(0,4);return y>=2000&&y<=2100&&iso(new Date(s+"T00:00:00"))===s};
+const okTs=s=>{const t=typeof s==="string"?Date.parse(s):NaN;return isNaN(t)||t<946684800000||t>4102444800000?"":new Date(t).toISOString()};
+function normAll(arr){
+ let bad=0;const w=()=>{bad++},seen=new Set();
+ const fix=(v,list,def)=>{if(list.includes(v))return v;if(v!=null&&v!=="")w();return def};
+ const uniq=(id,set)=>{if(okId(id)&&!set.has(id)){set.add(id);return id}if(id!=null)w();let n;do{n=uid()}while(set.has(n));set.add(n);return n};
+ const list=arr.map(r=>{
+  r=r&&typeof r==="object"&&!Array.isArray(r)?r:{};
+  const old=!Array.isArray(r.tasks),status=fix(r.status,STATUS,STATUS[0]),closed=status===STATUS[4],tid=new Set();
+  const src=Array.isArray(r.tasks)?r.tasks:(old&&okDate(r.follow)&&!closed?[{title:"Seguimiento",due:r.follow}]:[]);
+  const tasks=src.slice(0,MAXI.sub).map(t=>{
+   t=t&&typeof t==="object"?t:{};const done=t.done===true;
+   return {id:uniq(t.id,tid),title:clean(t.title,150)||"Seguimiento",due:okDate(t.due)?t.due:(w(),iso(new Date())),done,doneAt:done?(okTs(t.doneAt)||ts()):"",canceled:!done&&(closed||t.canceled===true)};
+  });
+  let amount=Number(r.amount);if(!Number.isFinite(amount)||amount<0){if(r.amount!=null&&r.amount!=="")w();amount=0}
+  const notes=(Array.isArray(r.notes)?r.notes:[]).slice(0,MAXI.sub).map(n=>({text:clean(n&&n.text,1000),date:okDate(n&&n.date)?n.date:iso(new Date())})).filter(n=>n.text);
+  const activity=(Array.isArray(r.activity)?r.activity:[]).slice(0,MAXI.sub).map(a=>({ts:okTs(a&&a.ts)||ts(),text:clean(a&&a.text,300)})).filter(a=>a.text);
+  if(old)activity.push({ts:ts(),text:"Cliente importado de la versión anterior"});
+  return {id:uniq(r.id,seen),name:clean(r.name,100)||"Sin nombre",phone:clean(r.phone,30),city:clean(r.city,80),type:fix(r.type,TYPES,TYPES[0]),status,result:closed?fix(r.result,RESULTS,""):"",source:fix(r.source,SOURCES,"Otro"),amount:Math.min(Math.round(amount),1e8),created:okTs(r.created)||ts(),notes,tasks,activity};
+ });
+ return {list,warnings:bad};
+}
+const norm=r=>normAll([r]).list[0];
+function parseBackup(text){
+ let j;try{j=JSON.parse(text)}catch(e){throw new Error("el archivo no es un JSON válido.")}
+ const obj=!!j&&typeof j==="object"&&!Array.isArray(j);
+ const arr=Array.isArray(j)?j:obj&&Array.isArray(j.clients)?j.clients:null;
+ if(!arr)throw new Error("no contiene una lista de clientes.");
+ if(obj&&j.app!==undefined&&j.app!=="LeadFlow Recovery")throw new Error("la copia pertenece a otra aplicación.");
+ if(obj&&Number(j.version)>2)throw new Error("la copia es de una versión más reciente de LeadFlow.");
+ if(arr.length>MAXI.clients)throw new Error("hay más de "+MAXI.clients+" clientes.");
+ const bad=arr.findIndex(c=>!c||typeof c!=="object"||Array.isArray(c)||!clean(c.name,100));
+ if(bad>=0)throw new Error("el cliente nº "+(bad+1)+" no tiene un nombre válido.");
+ return normAll(arr);
+}
+/*PURE-END*/
+/*ST-PURE-START*/
+const LEVELS=["Comprobado","Observación","Estimación"];
+const LEVEL_DEF={"Comprobado":"Verificado con un documento, un dato de un sistema o una demostración directa. Exige indicar la fuente.","Observación":"Visto directamente o contado por la empresa, sin verificación documental.","Estimación":"Cálculo, suposición o cifra aproximada."};
+const AREAS=[["captacion","Captación"],["digital","Presencia digital"],["recepcion","Recepción de solicitudes"],["cualificacion","Cualificación"],["presupuestos","Presupuestos"],["seguimiento","Seguimiento"],["conversion","Conversión"],["medicion","Medición de resultados"]];
+const SCALE=["Inexistente","Muy deficiente","Deficiente","Aceptable","Bueno","Excelente"];
+const PRIORITY=["Alta","Media","Baja"],DIFFICULTY=["Baja","Media","Alta"],ASTATUS=["Pendiente","En curso","Hecha"];
+const QDRAFT={
+ captacion:["¿Por qué canales llegan hoy las solicitudes de clientes (web, teléfono, recomendaciones, redes, otros)?","¿Qué proporción aproximada de solicitudes llega por cada canal?","¿Se invierte actualmente en algún canal de captación? ¿Cuánto y con qué resultado?","¿Se sabe de dónde procede cada solicitud nueva?"],
+ digital:["¿Existe página web propia y está actualizada con servicios y datos de contacto?","¿Hay formulario de solicitud o botón de contacto visible en móvil?","¿Hay ficha de la empresa en buscadores o mapas, y está al día?","¿Qué presencia tiene en redes sociales y con qué actividad reciente?"],
+ recepcion:["¿Quién recibe las solicitudes y por qué medios?","¿Cuánto tarda de media la primera respuesta?","¿Dónde se registra cada solicitud al recibirla?","¿Qué ocurre con las solicitudes que llegan fuera de horario?"],
+ cualificacion:["¿Qué datos se piden al cliente antes de preparar un presupuesto?","¿Se filtran las solicitudes según tipo de obra, zona o presupuesto disponible?","¿Se hace visita técnica o se recopilan fotos y medidas antes de presupuestar?","¿Existe algún criterio para priorizar las solicitudes?"],
+ presupuestos:["¿Cuánto tarda en enviarse un presupuesto desde la primera solicitud?","¿Cómo se elabora y qué formato tiene (desglosado, plazos, condiciones)?","¿Cuántos presupuestos se envían al mes y de qué importe medio?","¿Se conserva un registro de los presupuestos enviados y su estado?"],
+ seguimiento:["¿Se hace seguimiento tras enviar un presupuesto? ¿Cuándo y cuántas veces?","¿Quién es responsable del seguimiento y cómo se anotan los contactos?","¿Se dejan tareas o recordatorios con fecha?","¿Qué se hace con los presupuestos sin respuesta?"],
+ conversion:["¿Qué porcentaje de solicitudes llega a presupuesto y qué porcentaje de presupuestos se acepta?","¿Se registran los motivos de pérdida?","¿Cuál es el plazo medio desde la solicitud hasta la aceptación?","¿Hay diferencias de conversión por tipo de reforma o por canal?"],
+ medicion:["¿Qué indicadores se miden hoy (solicitudes, presupuestos, cierres, importes)?","¿Con qué frecuencia se revisan y quién lo hace?","¿Dónde se guardan los datos (hoja de cálculo, CRM, papel)?","¿Se conoce el coste de captación por canal?"]};
+const PROTO_DRAFT={version:"borrador-1",name:"Protocolo de trabajo (borrador inicial)",origin:"borrador",areas:AREAS.map(([id,name])=>({id,name,questions:QDRAFT[id].map((text,i)=>({id:id.slice(0,3)+(i+1),text}))}))};
+const areaName=id=>(AREAS.find(a=>a[0]===id)||[0,"—"])[1];
+
+/* Protocolo: las 8 áreas son fijas; cada pregunta necesita un id único (las respuestas se guardan por id) */
+function normProtocol(p){
+ if(!p||typeof p!=="object"||!Array.isArray(p.areas))return null;
+ const all=new Set(),areas=[];
+ for(const [id,name] of AREAS){
+  const a=p.areas.find(x=>x&&x.id===id);if(!a||!Array.isArray(a.questions))return null;
+  const qs=[];
+  for(const q of a.questions.slice(0,30)){
+   const text=clean(q&&q.text,300);if(!text)continue;
+   if(!okId(q.id)||all.has(q.id))return null;
+   all.add(q.id);qs.push({id:q.id,text});
+  }
+  if(!qs.length)return null;
+  areas.push({id,name,questions:qs});
+ }
+ return {version:clean(p.version,40)||"sin-version",name:clean(p.name,80)||"Protocolo importado",origin:p.origin==="borrador"?"borrador":"importado",areas};
+}
+function normStudy(r){
+ if(!r||typeof r!=="object")return null;
+ const proto=normProtocol(r.protocol);if(!proto)return null;
+ const co=r.company&&typeof r.company==="object"?r.company:{};
+ const company={name:clean(co.name,120),activity:clean(co.activity,200),location:clean(co.location,120),services:clean(co.services,600)};
+ if(!company.name)return null;
+ const qids=new Set(proto.areas.flatMap(a=>a.questions.map(q=>q.id)));
+ const answers={};
+ if(r.answers&&typeof r.answers==="object")for(const k of Object.keys(r.answers)){
+  if(!qids.has(k))continue;const a=r.answers[k]||{};
+  answers[k]={value:clean(a.value,1500),level:LEVELS.includes(a.level)?a.level:"",source:clean(a.source,200)};
+ }
+ const sc=r.scores&&typeof r.scores==="object"?r.scores:{},scores={};
+ AREAS.forEach(([id])=>{const x=sc[id]||{};scores[id]={score:Number.isInteger(x.score)&&x.score>=0&&x.score<=5?x.score:null,note:clean(x.note,1000)}});
+ const ids=new Set(),nid=v=>{let i=okId(v)&&!ids.has(v)?v:uid();while(ids.has(i))i=uid();ids.add(i);return i};
+ const arr=(v,n)=>Array.isArray(v)?v.slice(0,n):[],lv=v=>LEVELS.includes(v)?v:"",obj=x=>x&&typeof x==="object";
+ const data=arr(r.data,50).map(x=>obj(x)?{id:nid(x.id),label:clean(x.label,80),value:clean(x.value,200),level:lv(x.level),source:clean(x.source,200)}:null).filter(x=>x&&x.label&&x.value);
+ const findings=arr(r.findings,100).map(x=>obj(x)?{id:nid(x.id),area:AREAS.some(a=>a[0]===x.area)?x.area:"",problem:clean(x.problem,600),level:lv(x.level),evidence:clean(x.evidence,1000),consequence:clean(x.consequence,1000),opportunity:clean(x.opportunity,1000)}:null).filter(x=>x&&x.problem);
+ const fid=new Set(findings.map(f=>f.id));
+ const actions=arr(r.actions,100).map(x=>obj(x)?{id:nid(x.id),finding:fid.has(x.finding)?x.finding:"",solution:clean(x.solution,800),priority:PRIORITY.includes(x.priority)?x.priority:"",difficulty:DIFFICULTY.includes(x.difficulty)?x.difficulty:"",kpi:clean(x.kpi,300),target:clean(x.target,300),status:ASTATUS.includes(x.status)?x.status:"Pendiente"}:null).filter(x=>x&&x.solution);
+ const cn=obj(r.conclusions)?r.conclusions:{},mt=obj(r.meta)?r.meta:{},at=okTs(r.createdAt)||ts();
+ const s={id:okId(r.id)?r.id:uid(),status:"Borrador",createdAt:at,updatedAt:okTs(r.updatedAt)||at,completedAt:okTs(r.completedAt),company,
+  meta:{date:okDate(mt.date)?mt.date:iso(new Date()),analyst:clean(mt.analyst,80)},data,protocol:proto,answers,scores,findings,actions,
+  conclusions:{summary:clean(cn.summary,3000),recommendations:clean(cn.recommendations,3000)}};
+ if(r.status==="Completado"&&!issues(s).errors.length)s.status="Completado";
+ return s;
+}
+function normStudies(arr){const seen=new Set();return arr.slice(0,500).map(x=>normStudy(x)).filter(Boolean).map(s=>{while(seen.has(s.id))s.id=uid();seen.add(s.id);return s})}
+
+/* Cálculos a partir de los datos introducidos (nada se inventa) */
+function calc(s){
+ const mixOf=qs=>{const m={"Comprobado":0,"Observación":0,"Estimación":0,total:0};qs.forEach(q=>{const a=s.answers[q.id];if(a&&a.value){m.total++;if(a.level)m[a.level]++}});return m};
+ const areas=s.protocol.areas.map(a=>({id:a.id,name:a.name,score:s.scores[a.id].score,note:s.scores[a.id].note,mix:mixOf(a.questions),nq:a.questions.length}));
+ const sc=areas.filter(x=>x.score!==null);
+ return {areas,scored:sc.length,avg:sc.length?sc.reduce((t,x)=>t+x.score,0)/sc.length:null,mix:mixOf(s.protocol.areas.flatMap(a=>a.questions))};
+}
+/* Comprobaciones: "errors" impiden marcar el estudio como completado; "warnings" solo avisan */
+function issues(s){
+ const E=[],W=[],k=calc(s);
+ if(!s.company.activity)E.push("Ficha: falta la actividad de la empresa.");
+ if(!s.company.location)E.push("Ficha: falta la ubicación.");
+ if(!s.company.services)E.push("Ficha: faltan los servicios de la empresa.");
+ s.data.forEach(d=>{if(d.level==="Comprobado"&&!d.source)E.push("Ficha: el dato «"+d.label+"» es Comprobado pero no indica la fuente.")});
+ k.areas.forEach(a=>{
+  const ar=s.protocol.areas.find(x=>x.id===a.id);
+  if(a.score===null)E.push(a.name+": falta la puntuación (0 a 5).");
+  if(a.note.length<10)E.push(a.name+": falta la justificación de la puntuación.");
+  const ans=ar.questions.map(q=>[q,s.answers[q.id]]).filter(x=>x[1]&&x[1].value);
+  if(!ans.length)E.push(a.name+": no hay ninguna pregunta respondida.");
+  ans.forEach(([q,x])=>{
+   if(!x.level)E.push(a.name+": indica el nivel de evidencia de «"+q.text.slice(0,45)+"…».");
+   else if(x.level==="Comprobado"&&!x.source)E.push(a.name+": una respuesta Comprobado no indica la fuente («"+q.text.slice(0,45)+"…»).");
+  });
+  if(a.score!==null&&a.score<=2&&!s.findings.some(f=>f.area===a.id))W.push(a.name+": puntuación baja (≤ 2) sin ningún problema registrado en el diagnóstico.");
+ });
+ if(!s.findings.length)E.push("Diagnóstico: registra al menos un problema detectado.");
+ s.findings.forEach((f,i)=>{if(!f.area||!f.level||!f.evidence||!f.consequence||!f.opportunity)E.push("Diagnóstico #"+(i+1)+": faltan campos obligatorios.")});
+ if(!s.actions.length)E.push("Plan de acción: registra al menos una acción.");
+ s.actions.forEach((x,i)=>{if(!x.solution||!x.priority||!x.difficulty||!x.kpi||!s.findings.some(f=>f.id===x.finding))E.push("Acción #"+(i+1)+": faltan campos obligatorios.")});
+ s.findings.forEach((f,i)=>{if(!s.actions.some(x=>x.finding===f.id))W.push("Problema #"+(i+1)+" sin ninguna acción asociada.")});
+ if(s.conclusions.summary.length<20)E.push("Conclusiones: falta el resumen de conclusiones.");
+ if(s.conclusions.recommendations.length<20)E.push("Conclusiones: faltan las recomendaciones.");
+ if(k.mix.total&&!k.mix["Comprobado"])W.push("Ninguna respuesta está comprobada: las conclusiones se apoyan solo en observaciones y estimaciones.");
+ return {errors:E,warnings:W};
+}
+
+/* Informe: todo el contenido de usuario pasa por esc() */
+const nl=t=>esc(t).replace(/\n/g,"<br>");
+const LVC={"Comprobado":"c","Observación":"o","Estimación":"e"};
+const lvb=l=>l?`<span class="lv lv-${LVC[l]}">${esc(l)}</span>`:`<span class="lv lv-n">Sin nivel</span>`;
+const f1=n=>n===null?"—":n.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:2});
+const fdl=d=>new Date(d+"T00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+const REPORT_CSS=`.rep{font:14px/1.55 "Segoe UI",system-ui,-apple-system,sans-serif;color:#1f2a33}
+.rep h1{font-size:26px;margin:0 0 2px}.rep h2{font-size:18px;margin:26px 0 8px;padding-bottom:4px;border-bottom:2px solid #1f6f6b;color:#1b2a30}.rep h3{font-size:15px;margin:14px 0 4px}
+.rep .co{font-size:20px;color:#1f6f6b;font-weight:600;margin:0}.rep .meta{color:#66737d;font-size:13px;margin:6px 0 0}
+.rep table{width:100%;border-collapse:collapse;margin:8px 0}.rep th,.rep td{border:1px solid #e2e5e1;padding:6px 8px;text-align:left;vertical-align:top}.rep th{background:#f4f5f3;font-size:12.5px}
+.rep .banner{background:#fdf1dc;border:1px solid #f0dcb4;color:#6f4b0a;border-radius:8px;padding:10px 14px;margin:14px 0}.rep .banner ul{margin:6px 0 0 18px}
+.rep .lv{display:inline-block;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.rep .lv-c{background:#dff0e4;color:#1d6b3a}.rep .lv-o{background:#e8eefb;color:#2c4f9e}.rep .lv-e{background:#fdf1dc;color:#8a5a0c}.rep .lv-n{background:#f6e3df;color:#b3402f}
+.rep .bar{display:inline-block;width:90px;height:8px;background:#e2e5e1;border-radius:9px;overflow:hidden;vertical-align:middle}.rep .bar i{display:block;height:100%;background:#1f6f6b}
+.rep .box{border:1px solid #e2e5e1;border-radius:8px;padding:8px 14px;margin:8px 0;break-inside:avoid}.rep .box p{margin:4px 0}
+.rep .nt{color:#66737d;font-size:12.5px}.rep .big{font-size:30px;font-weight:700;color:#1f6f6b;line-height:1.1}
+@media print{.rep{font-size:11pt}.rep h2{break-after:avoid}.rep tr{break-inside:avoid}}`;
+function reportHTML(s){
+ const k=calc(s),I=issues(s),done=s.status==="Completado",c=s.company,m=k.mix;
+ const P={Alta:0,Media:1,Baja:2},D={Baja:0,Media:1,Alta:2};
+ const fnum=id=>{const i=s.findings.findIndex(f=>f.id===id);return i<0?"—":"#"+(i+1)};
+ const acts=s.actions.slice().sort((a,b)=>((P[a.priority]??9)-(P[b.priority]??9))||((D[a.difficulty]??9)-(D[b.difficulty]??9)));
+ const rk=k.areas.filter(a=>a.score!==null).sort((a,b)=>b.score-a.score);
+ const noLv=m.total-m["Comprobado"]-m["Observación"]-m["Estimación"];
+ const sum=[
+  k.avg===null?"Todavía no hay áreas puntuadas.":`Media global: <b>${f1(k.avg)}</b> sobre 5, calculada con ${k.scored} de 8 áreas${k.scored<8?" (<b>provisional</b>: faltan áreas por valorar)":""}.`,
+  rk.length>=2?`Área mejor valorada: ${esc(rk[0].name)} (${rk[0].score}). Área con menor valoración: ${esc(rk[rk.length-1].name)} (${rk[rk.length-1].score}).`:"",
+  `Se han registrado ${s.findings.length} problemas y ${s.actions.length} acciones (${s.actions.filter(a=>a.priority==="Alta").length} de prioridad alta).`,
+  m.total?`De ${m.total} respuestas del cuestionario: ${m["Comprobado"]} comprobadas, ${m["Observación"]} observaciones y ${m["Estimación"]} estimaciones${noLv?`, y ${noLv} sin nivel indicado`:""}.`:"No hay respuestas del cuestionario registradas."].filter(Boolean);
+ const row=(l,v)=>`<tr><th style="width:28%">${l}</th><td>${v?nl(v):"—"}</td></tr>`;
+ return `<h1>Informe de estudio empresarial</h1><p class="co">${esc(c.name)}</p>
+ <p class="meta">Fecha del estudio: ${fdl(s.meta.date)}${s.meta.analyst?" · Analista: "+esc(s.meta.analyst):""} · Protocolo: ${esc(s.protocol.name)} (${esc(s.protocol.version)}${s.protocol.origin==="borrador"?", borrador inicial":""}) · Estado: <b>${s.status}</b></p>
+ ${done?"":`<div class="banner"><b>BORRADOR: estudio incompleto.</b> Este informe no es la versión final. Pendientes (${I.errors.length}):<ul>${I.errors.slice(0,15).map(x=>`<li>${esc(x)}</li>`).join("")}${I.errors.length>15?`<li>… y ${I.errors.length-15} más</li>`:""}</ul></div>`}
+ <h2>1. Resumen</h2><div class="box"><div class="big">${f1(k.avg)}<span class="nt"> / 5</span></div>${sum.map(x=>`<p>${x}</p>`).join("")}<p class="nt">Resumen calculado automáticamente a partir de los datos registrados.</p></div>
+ <h2>2. Ficha de la empresa</h2><table>${row("Empresa",c.name)}${row("Actividad",c.activity)}${row("Ubicación",c.location)}${row("Servicios",c.services)}</table>
+ ${s.data.length?`<h3>Datos relevantes</h3><table><tr><th>Dato</th><th>Valor</th><th>Nivel</th><th>Fuente</th></tr>${s.data.map(d=>`<tr><td>${esc(d.label)}</td><td>${esc(d.value)}</td><td>${lvb(d.level)}</td><td>${d.source?esc(d.source):"—"}</td></tr>`).join("")}</table>`:""}
+ <h2>3. Puntuaciones por área</h2>
+ <table><tr><th>Área</th><th>Puntuación</th><th>Justificación</th><th>Respuestas (C · O · E)</th></tr>${k.areas.map(a=>`<tr><td>${esc(a.name)}</td><td>${a.score===null?"Sin puntuar":`<b>${a.score}</b>/5 <span class="bar"><i style="width:${a.score*20}%"></i></span><br><span class="nt">${SCALE[a.score]}</span>`}</td><td>${a.note?nl(a.note):"—"}</td><td>${a.mix["Comprobado"]} · ${a.mix["Observación"]} · ${a.mix["Estimación"]}</td></tr>`).join("")}<tr><th>Media global</th><th colspan="3">${f1(k.avg)} / 5${k.scored<8&&k.avg!==null?` (provisional, ${k.scored}/8 áreas)`:""}</th></tr></table>
+ <p class="nt">C = comprobadas, O = observaciones, E = estimaciones. Escala: 0 inexistente · 1 muy deficiente · 2 deficiente · 3 aceptable · 4 bueno · 5 excelente.</p>
+ <h2>4. Cuestionario</h2>${s.protocol.areas.map(a=>`<h3>${esc(a.name)}</h3>${a.questions.map(q=>{const x=s.answers[q.id];return `<div class="box"><b>${esc(q.text)}</b><p>${x&&x.value?nl(x.value):"<i>Sin respuesta</i>"}</p>${x&&x.value?`<p>${lvb(x.level)} ${x.source?`<span class="nt">Fuente: ${esc(x.source)}</span>`:""}</p>`:""}</div>`}).join("")}`).join("")}
+ <h2>5. Diagnóstico</h2>${s.findings.length?s.findings.map((f,i)=>`<div class="box"><p><b>#${i+1} · ${esc(areaName(f.area))}</b> ${lvb(f.level)}</p><p><b>Problema:</b> ${nl(f.problem)}</p><p><b>Evidencia:</b> ${nl(f.evidence)}</p><p><b>Consecuencias:</b> ${nl(f.consequence)}</p><p><b>Oportunidad de mejora:</b> ${nl(f.opportunity)}</p></div>`).join(""):"<p>No se han registrado problemas.</p>"}
+ <h2>6. Plan de acción</h2>${acts.length?`<table><tr><th>Prioridad</th><th>Solución propuesta</th><th>Problema</th><th>Dificultad</th><th>Indicador y objetivo</th><th>Estado</th></tr>${acts.map(a=>`<tr><td>${esc(a.priority||"—")}</td><td>${nl(a.solution)}</td><td>${fnum(a.finding)}</td><td>${esc(a.difficulty||"—")}</td><td>${nl(a.kpi)}${a.target?`<br><span class="nt">Objetivo: ${esc(a.target)}</span>`:""}</td><td>${esc(a.status)}</td></tr>`).join("")}</table><p class="nt">Ordenado por prioridad y, a igual prioridad, de menor a mayor dificultad.</p>`:"<p>No se han registrado acciones.</p>"}
+ <h2>7. Conclusiones y recomendaciones</h2><h3>Conclusiones</h3><p>${s.conclusions.summary?nl(s.conclusions.summary):"—"}</p><h3>Recomendaciones</h3><p>${s.conclusions.recommendations?nl(s.conclusions.recommendations):"—"}</p>
+ <h2>8. Notas metodológicas</h2><p class="nt"><b>Niveles de evidencia.</b> ${LEVELS.map(l=>`${esc(l)}: ${esc(LEVEL_DEF[l])}`).join(" ")} Las estimaciones y observaciones no deben interpretarse como datos verificados.</p>
+ ${I.warnings.length?`<p class="nt"><b>Avisos de revisión:</b> ${I.warnings.map(esc).join(" · ")}</p>`:""}<p class="nt">Informe generado el ${fdt(ts())} con LeadFlow Recovery.</p>`;
+}
+/*ST-PURE-END*/
+
+function demo(){
+ const d=n=>new Date(Date.now()-n*864e5).toISOString();
+ const mk=(name,phone,city,type,status,source,amount,age,tasks,notes)=>{
+  const si=STATUS.indexOf(status),act=[{ts:d(age),text:"Cliente creado"}];
+  for(let i=1;i<=si;i++)act.push({ts:d(Math.max(age-i*2,0)),text:`Estado: ${STATUS[i-1]} → ${STATUS[i]}`});
+  tasks.forEach(t=>{if(t.done){t.doneAt=d(t.ago);act.push({ts:t.doneAt,text:"Tarea realizada: "+t.title})}});
+  notes.forEach(n=>act.push({ts:d(n[1]),text:"Nota añadida"}));
+  return norm({name,phone,city,type,status,source,amount,created:d(age),activity:act,
+   notes:notes.map(n=>({text:n[0],date:inDays(-n[1])})),tasks:tasks.map(t=>({title:t.title,due:inDays(t.due),done:!!t.done,doneAt:t.doneAt}))});
+ };
+ return [
+  mk("Marta Gil Ortega","600 123 456","Alcalá de Henares","Baño","Nuevo","Web",0,1,[{title:"Llamar para concertar visita",due:0}],[["Pide presupuesto para cambiar bañera por plato de ducha.",1]]),
+  mk("Carlos Ruiz Pastor","611 222 333","Getafe","Cocina","Contactado","Teléfono",0,4,[{title:"Visita para medir la cocina",due:-2},{title:"Primera llamada",due:-4,done:1,ago:4}],[["Quiere cocina con isla central.",3]]),
+  mk("Lucía Fernández","622 987 654","Madrid","Baño y cocina","Presupuesto enviado","Recomendación",11800,9,[{title:"Preguntar si ha revisado el presupuesto",due:2},{title:"Enviar presupuesto",due:-2,done:1,ago:2}],[["Presupuesto enviado por email.",2]]),
+  mk("Familia Romero","633 456 789","Leganés","Cocina","En seguimiento","Web",7400,14,[{title:"Llamar el viernes",due:5},{title:"Enviar presupuesto",due:-8,done:1,ago:8}],[["Comparan con otra empresa.",4]]),
+  mk("Javier Molina","644 321 098","Fuenlabrada","Baño","Presupuesto enviado","Redes sociales",4200,7,[{title:"Resolver dudas sobre azulejos",due:-1}],[["Duda por el precio de los azulejos.",1]]),
+  mk("Elena Navarro","655 777 888","Alcorcón","Baño","Cerrado","Recomendación",5600,25,[{title:"Confirmar fecha de inicio de obra",due:-10,done:1,ago:10}],[["Obra aceptada. Empieza en diciembre.",6]]),
+  mk("Pablo Sanz","666 010 203","Móstoles","Cocina","Nuevo","Teléfono",0,0,[{title:"Pedir fotos de la cocina",due:1}],[]),
+  mk("Inés Carrasco","677 404 505","Torrejón de Ardoz","Baño y cocina","En seguimiento","Web",15900,18,[{title:"Consultar licencia de la comunidad",due:8}],[["Esperando licencia de la comunidad.",2]]),
+  mk("Rubén Ortiz","688 555 121","Pinto","Cocina","Presupuesto enviado","Redes sociales",6300,5,[{title:"Seguimiento del presupuesto",due:0}],[]),
+  mk("Ana Belén Rey","699 808 909","Parla","Baño","Cerrado","Web",3900,30,[],[]),
+  mk("Sergio Lara","601 909 808","Coslada","Cocina","Cerrado","Teléfono",5200,22,[],[["Eligió a otra empresa por plazo.",12]])
+ ].map(c=>{const R={"Elena Navarro":"Ganado","Ana Belén Rey":"Ganado","Sergio Lara":"Perdido"};if(R[c.name])c.result=R[c.name];return c});
+}
+let loadWarn="";
+function load(){
+ let raw=null;try{raw=localStorage.getItem(K2)}catch(e){}
+ if(raw){try{return parseBackup(raw).list}catch(e){try{localStorage.setItem(K2+"_corrupt",raw)}catch(_){}loadWarn="Los datos guardados no eran válidos: se conservó una copia aparte y se cargó la demostración."}}
+ try{const o=JSON.parse(localStorage.getItem(K1));if(Array.isArray(o)&&o.length)return normAll(o).list}catch(e){}
+ return demo();
+}
+function save(){try{localStorage.setItem(K2,JSON.stringify(data))}catch(e){toast("No se pudo guardar en el navegador (almacenamiento lleno o bloqueado). Exporta una copia.",1)}}
+let data=load(),view="dash",q="",fs="",ft="",fsrc="",detailId=null,tkClient=null,tkId=null,tt;
+save();if(loadWarn)toast(loadWarn,1);
+const get=id=>data.find(c=>c.id===id);
+const log=(c,text)=>c.activity.push({ts:ts(),text});
+const pending=c=>c.tasks.filter(t=>!t.done&&!t.canceled).sort((a,b)=>a.due.localeCompare(b.due));
+const allP=()=>data.flatMap(c=>pending(c).map(t=>({c,t}))).sort((a,b)=>a.t.due.localeCompare(b.t.due));
+const sum=a=>a.reduce((s,c)=>s+c.amount,0);
+const by=s=>data.filter(c=>c.status===s);
+function toast(m,err){const t=$("#toast");t.textContent=m;t.className=err?"err":"";t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,err?5000:2600)}
+
+/* ---------- Vistas ---------- */
+const taskRow=(c,t,inDetail)=>{const cn=t.canceled;return `<div class="item ${t.done?"isdone":""} ${cn?"isc":""}">${cn?`<span class="chk" title="Cancelada">–</span>`:`<button class="chk" data-a="tog" data-id="${c.id}" data-t="${t.id}" title="${t.done?"Reabrir tarea":"Marcar como realizada"}">${t.done?"✓":""}</button>`}
+ <div class="grow"><b>${esc(t.title)}</b>${inDetail?"":`<small><button class="link" data-a="view" data-id="${c.id}">${esc(c.name)}</button> · ${pill(c.status,c.result)}</small>`}</div>
+ <div class="when">${cn?`<small>Cancelada (cliente cerrado)</small>`:t.done?`<small>Hecha el ${fdt(t.doneAt)}</small>`:`<span class="${dcls(t.due)}">${dtxt(t.due)}</span>`}</div>
+ ${cn?"":`<button class="btn sm sec" data-a="etask" data-id="${c.id}" data-t="${t.id}">Editar</button>`}</div>`};
+const bar=(l,n,max,col)=>`<div class="bar"><em>${esc(l)}</em><i><u style="width:${max?n/max*100:0}%;background:${col}"></u></i><s>${n}</s></div>`;
+const card=(v,l,s,c,w)=>`<div class="stat ${w?"warn":""}" style="--c:${c||"var(--acc)"}"><b>${v}</b><span>${l}</span><small>${s||"&nbsp;"}</small></div>`;
+
+function dash(){
+ const td=inDays(0),P=allP(),n=data.length,mo=iso(new Date()).slice(0,7);
+ const late=P.filter(x=>x.t.due<td).length,now=P.filter(x=>x.t.due===td).length;
+ const open=data.filter(c=>c.status!==STATUS[4]),sent=data.filter(c=>c.status===STATUS[2]||c.status===STATUS[3]);
+ const closed=by(STATUS[4]),won=closed.filter(c=>c.result==="Ganado"),lost=closed.filter(c=>c.result==="Perdido");
+ const nores=closed.length-won.length-lost.length,wl=won.length+lost.length;
+ const avg=a=>a.length?sum(a)/a.length:0,priced=data.filter(c=>c.amount>0),wonP=won.filter(c=>c.amount>0);
+ const noTask=open.filter(c=>!pending(c).length).length;
+ const month=data.filter(c=>iso(new Date(c.created)).slice(0,7)===mo).length;
+ const srcN=SOURCES.map(s=>[s,data.filter(c=>c.source===s).length]),top=srcN.slice().sort((a,b)=>b[1]-a[1])[0];
+ const maxS=Math.max(1,...STATUS.map(s=>by(s).length)),maxO=Math.max(1,...srcN.map(x=>x[1]));
+ const act=data.flatMap(c=>c.activity.map(a=>({c,a}))).sort((x,y)=>y.a.ts.localeCompare(x.a.ts)).slice(0,6);
+ const kv=(l,v)=>`<div class="kv"><span>${l}</span><b>${v}</b></div>`;
+ const dd=(t,d)=>`<dt>${t}</dt><dd>${d}</dd>`;
+ return `<div class="top"><div><h1>Panel</h1><p class="sub">Resumen comercial. Los importes son estimaciones de presupuesto, no ingresos reales.</p></div><button class="btn" data-a="new">Añadir cliente</button></div>
+ <div class="stats">
+ ${card(n,"Solicitudes recibidas",month+" este mes",COL[0])}
+ ${card(open.length,"Oportunidades abiertas","Importe estimado: "+eur(sum(open)),COL[1])}
+ ${card(sent.length,"Presupuestos enviados","Importe estimado: "+eur(sum(sent)),COL[2])}
+ ${card(won.length,"Obras cerradas (ganadas)","Importe presupuestado: "+eur(sum(won)),COL[3])}
+ ${card(pct(won.length,wl),"Tasa de éxito",won.length+" ganadas de "+wl+" cerradas","#1f6f6b")}
+ ${card(late,"Tareas vencidas","Para hoy: "+now,"var(--red)",late>0)}
  </div>
-</footer>
+ <details class="defs"><summary>Cómo se calculan los indicadores</summary><dl>
+ ${dd("Solicitudes recibidas","Todos los clientes registrados, en cualquier estado.")}
+ ${dd("Oportunidades abiertas","Clientes que no están en estado Cerrado.")}
+ ${dd("Presupuestos enviados","Oportunidades en «Presupuesto enviado» o «En seguimiento». Son un subconjunto de las abiertas.")}
+ ${dd("Obras cerradas (ganadas)","Estado Cerrado con resultado Ganado. Las perdidas se cuentan aparte.")}
+ ${dd("Importes","Suma de los importes estimados que introduces. No son ingresos, cobros ni facturación.")}
+ ${dd("Tasa de éxito","Ganadas ÷ (ganadas + perdidas). No incluye abiertas ni cerradas sin resultado.")}
+ ${dd("Conversión global","Ganadas ÷ solicitudes recibidas.")}
+ ${dd("Importes medios","Media solo de los clientes con importe mayor que 0.")}
+ </dl></details>
+ <div class="grid2"><div class="panel"><h2>Solicitudes por estado</h2>${STATUS.map((s,i)=>bar(s,by(s).length,maxS,COL[i])).join("")}</div>
+ <div class="panel"><h2>Solicitudes por origen</h2>${srcN.map(([s,k])=>bar(s,k,maxO,"#1f6f6b")).join("")}</div></div>
+ <div class="grid2"><div class="panel"><h2>Indicadores comerciales</h2>
+ ${kv("Conversión global",pct(won.length,n))}
+ ${kv("Obras perdidas",lost.length)}
+ ${kv("Cerrados sin resultado",`<span class="${nores?"late":""}">${nores}</span>`)}
+ ${kv("Importe medio estimado",priced.length?eur(avg(priced)):"—")}
+ ${kv("Importe medio de obras ganadas",wonP.length?eur(avg(wonP)):"—")}
+ ${kv("Origen principal",n&&top[1]?esc(top[0])+" ("+top[1]+")":"—")}
+ ${kv("Oportunidades abiertas sin tarea",`<span class="${noTask?"late":""}">${noTask}</span>`)}</div>
+ <div class="panel"><h2>Próximas tareas</h2>${P.slice(0,5).map(x=>taskRow(x.c,x.t)).join("")||`<div class="empty">No hay tareas pendientes.</div>`}</div></div>
+ <div class="panel"><h2>Actividad reciente</h2>${act.map(({c,a})=>`<div class="item"><div class="grow"><b>${esc(a.text)}</b><small><button class="link" data-a="view" data-id="${c.id}">${esc(c.name)}</button> · ${fdt(a.ts)}</small></div></div>`).join("")||`<div class="empty">Sin actividad.</div>`}</div>`;
+}
 
-<div id="toast" role="status" hidden></div>
+function clients(){
+ const L=data.filter(c=>(!fs||c.status===fs)&&(!ft||c.type===ft)&&(!fsrc||c.source===fsrc)&&(!q||[c.name,c.phone,c.city].join(" ").toLowerCase().includes(q.toLowerCase())));
+ const sent=data.filter(c=>c.status===STATUS[2]||c.status===STATUS[3]);
+ const rows=L.map(c=>{const nx=pending(c)[0];return `<tr><td><button class="link" data-a="view" data-id="${c.id}">${av(c.name)}<span>${esc(c.name)}<small>${esc(c.source)}</small></span></button></td>
+ <td data-l="Teléfono"><a href="tel:${esc(c.phone.replace(/\s/g,""))}">${esc(c.phone)}</a></td><td data-l="Localidad">${esc(c.city)}</td><td data-l="Reforma">${esc(c.type)}</td>
+ <td>${pill(c.status,c.result)}</td><td data-l="Importe">${c.amount?eur(c.amount):"—"}</td>
+ <td data-l="Seguimiento">${nx?`<span class="${dcls(nx.due)}">${dtxt(nx.due)}</span>`:`<span class="mute">Sin tarea</span>`}</td>
+ <td><div class="acts"><button class="btn sm sec" data-a="view" data-id="${c.id}">Ver</button><button class="btn sm sec" data-a="edit" data-id="${c.id}">Editar</button><button class="btn sm del" data-a="del" data-id="${c.id}">Eliminar</button></div></td></tr>`}).join("");
+ return `<div class="top"><div><h1>Clientes</h1><p class="sub">${L.length} de ${data.length} clientes</p></div><button class="btn" data-a="new">Añadir cliente</button></div>
+ <div class="chips"><span>Presupuestos enviados: <b>${sent.length}</b></span><span>Importe estimado (no es ingreso): <b>${eur(sum(sent))}</b></span></div>
+ <div class="tools"><input id="q" type="search" placeholder="Buscar por nombre, teléfono o localidad" value="${esc(q)}">
+ <select id="fs"><option value="">Todos los estados</option>${opts(STATUS,fs)}</select>
+ <select id="ft"><option value="">Todas las reformas</option>${opts(TYPES,ft)}</select>
+ <select id="fsrc"><option value="">Todos los orígenes</option>${opts(SOURCES,fsrc)}</select></div>
+ ${L.length?`<table><thead><tr><th>Cliente</th><th>Teléfono</th><th>Localidad</th><th>Reforma</th><th>Estado</th><th>Importe</th><th>Seguimiento</th><th></th></tr></thead><tbody>${rows}</tbody></table>`
+ :`<div class="panel empty">No hay clientes con estos filtros. Cambia la búsqueda o añade uno nuevo.</div>`}`;
+}
 
-<script src="store.js"></script>
-<script src="app.js"></script>
+function tasksView(){
+ const td=inDays(0),P=allP(),g=f=>P.filter(f).map(x=>taskRow(x.c,x.t)).join("")||`<div class="empty">Nada por aquí.</div>`;
+ const D=data.flatMap(c=>c.tasks.filter(t=>t.done).map(t=>({c,t}))).sort((a,b)=>b.t.doneAt.localeCompare(a.t.doneAt)).slice(0,8);
+ const sec=(t,h,cls)=>`<div class="panel" style="margin-bottom:16px"><h2 class="${cls||""}">${t} <small>(${h})</small></h2>`;
+ return `<div class="top"><div><h1>Tareas</h1><p class="sub">Seguimientos programados. Marca el círculo para completarlos.</p></div><button class="btn" data-a="ntask">Nueva tarea</button></div>
+ ${sec("Vencidas",P.filter(x=>x.t.due<td).length,"late")}${g(x=>x.t.due<td)}</div>
+ ${sec("Hoy",P.filter(x=>x.t.due===td).length,"today")}${g(x=>x.t.due===td)}</div>
+ ${sec("Futuras",P.filter(x=>x.t.due>td).length)}${g(x=>x.t.due>td)}</div>
+ ${sec("Realizadas recientemente",D.length)}${D.map(x=>taskRow(x.c,x.t)).join("")||`<div class="empty">Aún no has completado tareas.</div>`}</div>`;
+}
 
+function backup(){
+ const cnt=k=>data.reduce((s,c)=>s+c[k].length,0);
+ return `<h1>Copia de seguridad</h1><p class="sub">Tus datos se guardan solo en este navegador. Exporta una copia con regularidad.</p>
+ <div class="grid2"><div class="panel"><h2>Datos actuales</h2><div class="kv"><span>Clientes</span><b>${data.length}</b></div><div class="kv"><span>Tareas</span><b>${cnt("tasks")}</b></div><div class="kv"><span>Notas</span><b>${cnt("notes")}</b></div><div class="kv"><span>Registros de actividad</span><b>${cnt("activity")}</b></div></div>
+ <div class="panel"><h2>Acciones</h2><p class="sub" style="margin-bottom:12px">Exportar crea un archivo JSON. Importar sustituye todos los datos actuales, y te avisaremos antes.</p>
+ <div class="acts" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn" data-a="export">Exportar copia (JSON)</button><button class="btn sec" data-a="import">Importar copia</button><button class="btn del" data-a="reset">Restaurar datos de demostración</button></div></div></div>`;
+}
+
+function render(){
+ const keep=document.activeElement&&document.activeElement.id==="q";
+ $("#main").innerHTML={dash,clients,tasks:tasksView,backup,studies:studiesView}[view]();
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+ const k=allP().filter(x=>x.t.due<=inDays(0)).length;$("#tb").hidden=!k;$("#tb").textContent=k;
+ if(keep){const i=$("#q");i.focus();i.setSelectionRange(i.value.length,i.value.length)}
+}
+const refresh=()=>{render();if($("#dtl").open)fillDetail()};
+
+/* ---------- Ficha de cliente ---------- */
+function fillDetail(){
+ const c=get(detailId);if(!c){$("#dtl").close();return}
+ const P=pending(c),D=c.tasks.filter(t=>t.done).sort((a,b)=>b.doneAt.localeCompare(a.doneAt));
+ const i=(l,v)=>`<div><small>${l}</small><b>${v}</b></div>`;
+ $("#dtlb").innerHTML=`<div class="dh">${av(c.name)}<div class="grow"><h2>${esc(c.name)}</h2>${pill(c.status,c.result)}</div><button class="btn sm sec" data-a="edit" data-id="${c.id}">Editar</button><button class="btn sm sec" data-a="close">Cerrar</button></div>
+ <div class="info">${i("Teléfono",`<a href="tel:${esc(c.phone.replace(/\s/g,""))}">${esc(c.phone)}</a>`)}${i("Localidad",esc(c.city))}${i("Reforma",esc(c.type))}${i("Origen",esc(c.source))}${i("Importe estimado",c.amount?eur(c.amount):"Sin definir")}${i("Alta",fd(c.created))}</div>
+ <div class="qs"><label for="qs">Cambiar estado</label><select id="qs">${opts(STATUS,c.status)}</select></div>
+ <h3>Tareas <button class="btn sm" data-a="ntask" data-id="${c.id}">Nueva tarea</button></h3>
+ ${P.concat(D,c.tasks.filter(t=>t.canceled)).map(t=>taskRow(c,t,true)).join("")||`<div class="empty">Sin tareas. Crea un seguimiento.</div>`}
+ <h3>Notas</h3><div class="nrow"><input id="nn" maxlength="1000" placeholder="Escribe una nota y pulsa Intro"><button class="btn sm" data-a="addnote">Añadir</button></div>
+ <div class="notes">${c.notes.slice().reverse().map(n=>`<p>${esc(n.text)}<br><small>${fmt(n.date)}</small></p>`).join("")||`<small>Sin notas.</small>`}</div>
+ <h3>Historial de actividad</h3><div class="tl">${c.activity.slice().sort((a,b)=>b.ts.localeCompare(a.ts)).map(a=>`<p>${esc(a.text)}<small>${fdt(a.ts)}</small></p>`).join("")}</div>`;
+}
+function openDetail(id){detailId=id;fillDetail();if(!$("#dtl").open)$("#dtl").showModal()}
+
+/* ---------- Formularios ---------- */
+function syncClosed(){const k=$("#status").value===STATUS[4];$("#rw").hidden=!k;$("#result").required=k;$("#fw").hidden=!!$("#f").dataset.id||k}
+function openForm(id,preset){
+ const c=get(id)||{};
+ $("#type").innerHTML=opts(TYPES,c.type);$("#status").innerHTML=opts(STATUS,preset||c.status);$("#result").innerHTML=`<option value="">Selecciona…</option>`+opts(RESULTS,c.result);$("#source").innerHTML=opts(SOURCES,c.source);
+ $("#ft").textContent=id?"Editar cliente":"Nuevo cliente";$("#f").dataset.id=id||"";syncClosed();
+ $("#name").value=c.name||"";$("#phone").value=c.phone||"";$("#city").value=c.city||"";
+ $("#amount").value=c.amount||"";$("#follow").value="";$("#note").value="";
+ $("#f").dataset.id=id||"";$("#dlg").showModal();$("#name").focus();
+}
+$("#f").addEventListener("submit",e=>{
+ e.preventDefault();
+ const id=$("#f").dataset.id,isNew=!id,ex=get(id),status=$("#status").value,isC=status===STATUS[4],result=isC?$("#result").value:"";
+ const name=clean($("#name").value,100),phone=clean($("#phone").value,30),city=clean($("#city").value,80),amount=Math.min(Math.max(Math.round(Number($("#amount").value)||0),0),1e8);
+ if(!name||!phone||!city){toast("Nombre, teléfono y localidad son obligatorios.",1);return}
+ if(isC&&!RESULTS.includes(result)){toast("Indica si la obra se ganó o se perdió.",1);return}
+ const np=ex&&isC&&ex.status!==STATUS[4]?pending(ex).length:0;
+ if(np&&!confirm(`Al cerrar a ${name} se cancelarán sus ${np} tareas pendientes. Las tareas ya realizadas se conservan en el historial. ¿Continuar?`))return;
+ const c=ex||norm({name});
+ if(isNew){c.activity=[];log(c,"Cliente creado")}
+ const old={status:c.status,result:c.result,amount:c.amount};
+ Object.assign(c,{name,phone,city,type:$("#type").value,status,result,source:$("#source").value,amount});
+ if(!isNew){
+  if(old.status!==status)log(c,`Estado: ${old.status} → ${status}`+(result?` (${result})`:""));
+  else if(isC&&old.result!==result)log(c,`Resultado del cierre: ${old.result||"sin definir"} → ${result}`);
+  if(old.amount!==amount)log(c,`Importe estimado: ${eur(old.amount)} → ${eur(amount)}`);
+ }else if(amount)log(c,"Importe estimado: "+eur(amount));
+ if(np){c.tasks.forEach(t=>{if(!t.done&&!t.canceled)t.canceled=true});log(c,`Tareas pendientes canceladas al cerrar: ${np}`)}
+ const fw=$("#follow").value;
+ if(isNew&&!isC&&okDate(fw)){c.tasks.push({id:uid(),title:"Seguimiento",due:fw,done:false,doneAt:"",canceled:false});log(c,`Tarea creada: Seguimiento (para el ${fmt(fw)})`)}
+ const nt=clean($("#note").value,1000);if(nt){c.notes.push({text:nt,date:iso(new Date())});log(c,"Nota añadida")}
+ if(isNew)data.unshift(c);
+ save();$("#dlg").close();refresh();toast("Cliente guardado");
+});
+
+function openTask(cid,tid){
+ const act=data.filter(x=>x.status!==STATUS[4]),c=get(cid),t=c&&c.tasks.find(x=>x.id===tid);
+ if(c&&c.status===STATUS[4]){toast("El cliente está cerrado. Reábrelo para añadir tareas.",1);return}
+ if(!c&&!act.length){toast("Primero añade un cliente abierto.",1);return}
+ tkClient=cid;tkId=tid||null;
+ $("#tkc").innerHTML=(c?[c]:act).map(x=>`<option value="${x.id}" ${x.id===cid?"selected":""}>${esc(x.name)}</option>`).join("");
+ $("#tkc").disabled=!!(cid);$("#tkh").textContent=t?"Editar tarea":"Nueva tarea";
+ $("#tkt").value=t?t.title:"";$("#tkd").value=t?t.due:inDays(1);$("#tkdel").hidden=!t;
+ $("#dtk").showModal();$("#tkt").focus();
+}
+$("#ftk").addEventListener("submit",e=>{
+ e.preventDefault();
+ const c=get($("#tkc").value),title=clean($("#tkt").value,150),due=$("#tkd").value;
+ if(!c||c.status===STATUS[4]||!title||!okDate(due)){toast("Revisa el cliente, el título y la fecha.",1);return}
+ if(tkId){const t=c.tasks.find(x=>x.id===tkId);if(t.title!==title||t.due!==due)log(c,`Tarea modificada: ${title} (para el ${fmt(due)})`);Object.assign(t,{title,due})}
+ else{c.tasks.push({id:uid(),title,due,done:false,doneAt:""});log(c,`Tarea creada: ${title} (para el ${fmt(due)})`)}
+ save();$("#dtk").close();refresh();toast("Tarea guardada");
+});
+
+/* ---------- Copia de seguridad ---------- */
+function exportData(){
+ const blob=new Blob([JSON.stringify({app:"LeadFlow Recovery",version:2,exportedAt:ts(),clients:data},null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="leadflow-copia-"+iso(new Date())+".json";
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+ toast("Copia exportada ("+data.length+" clientes)");
+}
+function importFile(f){
+ if(f.size>5*1024*1024){toast("Importación cancelada: el archivo supera los 5 MB.",1);return}
+ const r=new FileReader();
+ r.onload=()=>{
+  let res;try{res=parseBackup(String(r.result))}catch(e){toast("Importación cancelada: "+e.message,1);return}
+  const nc=res.list,msg=`Vas a SOBRESCRIBIR los ${data.length} clientes actuales con ${nc.length} clientes del archivo "${f.name}".`+(res.warnings?`\n\nSe corregirán o descartarán ${res.warnings} valores no válidos del archivo.`:"")+"\n\nEsta acción no se puede deshacer. Si no tienes una copia de los datos actuales, cancela y exporta primero. ¿Continuar?";
+  if(data.length&&!confirm(msg))return;
+  data=nc;save();refresh();toast("Copia importada ("+nc.length+" clientes)");
+ };
+ r.onerror=()=>toast("No se pudo leer el archivo.",1);
+ r.readAsText(f);
+}
+$("#file").addEventListener("change",e=>{const f=e.target.files[0];if(f)importFile(f);e.target.value=""});
+
+/* ---------- Eventos ---------- */
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-a],nav button");if(!b)return;
+ if(b.dataset.v){flushSave();view=b.dataset.v;if(view==="studies")ST.mode="list";render();return}
+ const a=b.dataset.a,id=b.dataset.id,c=get(id);
+ if(a&&a.startsWith("st-")){stAct(a,b);return}
+ const acts={
+  new:()=>openForm(null),
+  edit:()=>openForm(id),
+  view:()=>openDetail(id),
+  close:()=>b.closest("dialog").close(),
+  del:()=>{if(confirm(`¿Eliminar a ${c.name} y todo su historial? No se puede deshacer.`)){data=data.filter(x=>x.id!==id);save();refresh();toast("Cliente eliminado")}},
+  tog:()=>{const t=c.tasks.find(x=>x.id===b.dataset.t);t.done=!t.done;t.doneAt=t.done?ts():"";log(c,(t.done?"Tarea realizada: ":"Tarea reabierta: ")+t.title);save();refresh()},
+  ntask:()=>openTask(id||null,null),
+  etask:()=>openTask(id,b.dataset.t),
+  dtask:()=>{const cl=get(tkClient),t=cl.tasks.find(x=>x.id===tkId);if(confirm(`¿Eliminar la tarea "${t.title}"?`)){cl.tasks=cl.tasks.filter(x=>x.id!==tkId);log(cl,"Tarea eliminada: "+t.title);save();$("#dtk").close();refresh()}},
+  addnote:()=>{const i=$("#nn"),v=i.value.trim(),cl=get(detailId);if(!v)return;cl.notes.push({text:v,date:iso(new Date())});log(cl,"Nota añadida");save();refresh();$("#nn").focus()},
+  export:exportData,
+  import:()=>$("#file").click(),
+  reset:()=>{if(confirm("¿Restaurar los datos de demostración? Se perderán los datos actuales.")){data=demo();save();refresh();toast("Datos de demostración restaurados")}}
+ };
+ if(acts[a])acts[a]();
+});
+document.addEventListener("keydown",e=>{if(e.target.id==="nn"&&e.key==="Enter"){e.preventDefault();document.querySelector('[data-a="addnote"]').click()}});
+document.addEventListener("input",e=>{if(e.target.id==="q"){q=e.target.value;render()}});
+document.addEventListener("change",e=>{
+ const t=e.target;
+ if(t.id==="fs"){fs=t.value;render()}
+ if(t.id==="ft"){ft=t.value;render()}
+ if(t.id==="fsrc"){fsrc=t.value;render()}
+ if(t.id==="status")syncClosed();
+ if(t.id==="qs"){const c=get(detailId);if(!c||t.value===c.status)return;
+  if(t.value===STATUS[4]){fillDetail();openForm(c.id,STATUS[4]);return}
+  const was=c.status;if(was===STATUS[4])c.result="";
+  log(c,`Estado: ${was} → ${t.value}`);c.status=t.value;save();refresh()}
+});
+/* ===================== Módulo: Estudios de empresas ===================== */
+const SK="leadflow_recovery_studies_v1",PK="leadflow_recovery_protocol_v1";
+let studies=[],protocol=PROTO_DRAFT,stWarn="",stT=null,ITEM=null;
+const ST={mode:"list",id:null,tab:"ficha",q:"",fs:"",rid:null,imp:"",pend:false,open:new Set()};
+const curStudy=()=>studies.find(x=>x.id===ST.id);
+const pj=t=>{try{return JSON.parse(t)}catch(e){throw new Error("el archivo no es un JSON válido.")}};
+function stLoad(){
+ let raw=null;
+ try{raw=localStorage.getItem(PK)}catch(e){}
+ if(raw){try{protocol=normProtocol(JSON.parse(raw))||PROTO_DRAFT}catch(e){protocol=PROTO_DRAFT}}
+ raw=null;try{raw=localStorage.getItem(SK)}catch(e){}
+ if(!raw){studies=[];return}
+ try{const j=JSON.parse(raw);if(!j||!Array.isArray(j.studies))throw 0;studies=normStudies(j.studies);stWarn=""}
+ catch(e){studies=[];try{localStorage.setItem(SK+"_corrupt",raw)}catch(_){}stWarn="Los estudios guardados no se pudieron leer. Se conservó una copia aparte (clave "+SK+"_corrupt)."}
+}
+function stSave(now){
+ clearTimeout(stT);
+ const run=()=>{stT=null;try{localStorage.setItem(SK,JSON.stringify({version:1,studies}))}catch(e){toast("No se pudieron guardar los estudios (almacenamiento lleno o bloqueado). Exporta una copia.",1)}};
+ if(now)run();else stT=setTimeout(run,300);
+}
+const flushSave=()=>{if(stT!==null)stSave(true)};
+addEventListener("beforeunload",flushSave);
+document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});
+addEventListener("storage",e=>{
+ if(e.key!==SK&&e.key!==null)return;if(stT!==null)return;
+ stLoad();
+ if(view==="studies"){if(ST.mode==="list")render();else toast("Los estudios se modificaron en otra pestaña. Vuelve a la lista para ver los cambios.",1)}
+});
+/* Un estudio completado que deja de cumplir las comprobaciones vuelve a Borrador */
+function touch(s){
+ s.updatedAt=ts();
+ if(s.status==="Completado"&&issues(s).errors.length){s.status="Borrador";s.completedAt="";toast("El estudio ya no cumple las comprobaciones y vuelve a Borrador.",1)}
+ stSave();
+}
+const avgTxt=k=>k.avg===null?"—":f1(k.avg)+" / 5"+(k.scored<8?" (provisional, "+k.scored+"/8 áreas)":"");
+const issHTML=I=>(I.errors.length||I.warnings.length)?`<ul>${I.errors.map(x=>`<li class="e">${esc(x)}</li>`).join("")}${I.warnings.map(x=>`<li class="w">Aviso: ${esc(x)}</li>`).join("")}</ul>`:`<p class="mute">Todo en orden.</p>`;
+
+/* ---------- Vistas ---------- */
+function studiesView(){return ST.mode==="edit"&&curStudy()?stEdit(curStudy()):stList()}
+function stList(){
+ const q=ST.q.toLowerCase();
+ const L=studies.filter(s=>(!ST.fs||s.status===ST.fs)&&(!q||(s.company.name+" "+s.company.activity+" "+s.company.location).toLowerCase().includes(q))).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
+ const rows=L.map(s=>{const k=calc(s);return `<tr><td><b>${esc(s.company.name)}</b><small style="display:block;color:var(--mute)">${esc(s.company.activity)}</small></td><td data-l="Ubicación">${esc(s.company.location)}</td><td><span class="pill ${s.status==="Completado"?"s3":"s1"}">${s.status}</span></td><td data-l="Media global">${k.avg===null?"—":f1(k.avg)+" / 5"+(k.scored<8?` <small>(${k.scored}/8 áreas)</small>`:"")}</td><td data-l="Actualizado">${fdt(s.updatedAt)}</td><td><div class="acts"><button class="btn sm" data-a="st-open" data-id="${s.id}">Abrir</button><button class="btn sm sec" data-a="st-report" data-id="${s.id}">Informe</button><button class="btn sm del" data-a="st-del" data-id="${s.id}">Eliminar</button></div></td></tr>`}).join("");
+ return `<div class="top"><div><h1>Estudios de empresas</h1><p class="sub">Análisis de captación y gestión comercial de cada empresa.</p></div><button class="btn" data-a="st-new">Nuevo estudio</button></div>
+ ${stWarn?`<div class="note bad">${esc(stWarn)}</div>`:""}
+ <div class="panel" style="margin-bottom:16px"><h2>Protocolo para nuevos estudios</h2><p><b>${esc(protocol.name)}</b> · versión ${esc(protocol.version)} · ${protocol.origin==="borrador"?"<b>borrador inicial propuesto</b>, pendiente de sustituir por el protocolo oficial de LeadFlow":"importado"}</p><div class="acts" style="justify-content:flex-start;margin-top:10px"><button class="btn sm sec" data-a="st-pimport">Importar protocolo (JSON)</button><button class="btn sm sec" data-a="st-pexport">Exportar protocolo</button></div><p class="mute" style="margin-top:8px">Los estudios ya creados conservan el protocolo con el que se crearon.</p></div>
+ <div class="tools"><input id="stq" type="search" placeholder="Buscar por empresa, actividad o ubicación" value="${esc(ST.q)}"><select id="stfs"><option value="">Todos los estados</option>${opts(["Borrador","Completado"],ST.fs)}</select></div>
+ ${L.length?`<table><thead><tr><th>Empresa</th><th>Ubicación</th><th>Estado</th><th>Media global</th><th>Actualizado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`:`<div class="panel empty">${studies.length?"Ningún estudio coincide con la búsqueda.":"Aún no hay estudios. Crea el primero cuando una empresa acepte realizar un estudio."}</div>`}
+ <p style="margin-top:16px" class="acts"><button class="btn sec sm" data-a="st-export">Exportar estudios (JSON)</button><button class="btn sec sm" data-a="st-import">Importar estudios</button></p>`;
+}
+const actsHTML=s=>{const done=s.status==="Completado";return `<button class="btn sm sec" data-a="st-report" data-id="${s.id}">${done?"Ver informe":"Vista previa del informe"}</button>${done?`<button class="btn sm sec" data-a="st-reopen">Reabrir como borrador</button>`:`<button class="btn sm" data-a="st-complete">Marcar como completado</button>`}`};
+function stEdit(s){
+ const k=calc(s),I=issues(s),done=s.status==="Completado",pend=ST.pend;ST.pend=false;
+ const tabs=[["ficha","Empresa"],["eval","Evaluación"],["diag","Diagnóstico"],["plan","Plan de acción"],["conc","Conclusiones"]];
+ return `<div class="top"><div><button class="link" data-a="st-back">← Estudios</button><h1>${esc(s.company.name)}</h1><p class="sub"><span class="pill ${done?"s3":"s1"}" id="st-pill">${s.status}</span> · Media global: <b id="st-avg">${avgTxt(k)}</b> · Protocolo: ${esc(s.protocol.name)} (${esc(s.protocol.version)})</p></div>
+ <div class="acts" id="st-acts">${actsHTML(s)}</div></div>
+ <details class="defs" ${pend?"open":""}><summary>Pendientes para completar: <span id="st-n">${I.errors.length}</span> · Avisos: <span id="st-w">${I.warnings.length}</span></summary><div id="st-iss">${issHTML(I)}</div></details>
+ <div class="tabs">${tabs.map(t=>`<button class="${ST.tab===t[0]?"on":""}" data-a="st-tab" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
+ ${{ficha:tabFicha,eval:tabEval,diag:tabDiag,plan:tabPlan,conc:tabConc}[ST.tab](s)}`;
+}
+function tabFicha(s){
+ const c=s.company,inp=(k,l,v,max,req)=>`<label class="lbl">${l}${req?" *":""}<input class="fi" maxlength="${max}" data-k="co|${k}" value="${esc(v)}"></label>`;
+ return `<div class="panel"><h2>Ficha de la empresa</h2><div class="fg">${inp("name","Nombre de la empresa",c.name,120,1)}${inp("activity","Actividad",c.activity,200,1)}${inp("location","Ubicación (localidad y provincia)",c.location,120,1)}
+ <label class="lbl">Fecha del estudio *<input class="fi" type="date" data-k="meta|date" value="${esc(s.meta.date)}"></label>
+ <label class="lbl full">Servicios que ofrece la empresa *<textarea class="fi" rows="3" maxlength="600" data-k="co|services">${esc(c.services)}</textarea></label>
+ <label class="lbl">Analista (opcional)<input class="fi" maxlength="80" data-k="meta|analyst" value="${esc(s.meta.analyst)}"></label></div></div>
+ <div class="panel" style="margin-top:16px"><div class="top"><h2>Datos relevantes</h2><button class="btn sm" data-a="st-item" data-kind="datum">Añadir dato</button></div>
+ <div class="legend">${LEVELS.map(l=>`<div>${lvb(l)} ${esc(LEVEL_DEF[l])}</div>`).join("")}</div>
+ ${s.data.length?`<table><thead><tr><th>Dato</th><th>Valor</th><th>Nivel</th><th>Fuente</th><th></th></tr></thead><tbody>${s.data.map(d=>`<tr><td>${esc(d.label)}</td><td data-l="Valor">${esc(d.value)}</td><td>${lvb(d.level)}</td><td data-l="Fuente">${d.source?esc(d.source):"—"}</td><td><div class="acts"><button class="btn sm sec" data-a="st-item" data-kind="datum" data-id="${d.id}">Editar</button></div></td></tr>`).join("")}</tbody></table>`:`<p class="mute">Sin datos relevantes. Añade cifras o hechos de la empresa indicando su nivel de evidencia.</p>`}</div>`;
+}
+function tabEval(s){
+ return `<p class="sub">Responde cada pregunta, indica su nivel de evidencia y puntúa el área de 0 a 5 con su justificación. Escala: ${SCALE.map((x,i)=>i+" "+x.toLowerCase()).join(" · ")}.</p>`+s.protocol.areas.map(a=>{
+  const sc=s.scores[a.id],ans=a.questions.filter(q=>s.answers[q.id]&&s.answers[q.id].value).length;
+  const qs=a.questions.map(q=>{const x=s.answers[q.id]||{value:"",level:"",source:""};return `<div class="qa"><label>${esc(q.text)}</label><textarea class="fi" rows="2" maxlength="1500" data-k="q|${q.id}|value">${esc(x.value)}</textarea><div class="qr"><select class="fi" data-k="q|${q.id}|level"><option value="">Nivel de evidencia…</option>${opts(LEVELS,x.level)}</select><input class="fi" maxlength="200" data-k="q|${q.id}|source" placeholder="Fuente o cómo se comprobó (obligatoria si es Comprobado)" value="${esc(x.source)}"></div></div>`}).join("");
+  return `<details class="area" data-area="${a.id}" ${ST.open.has(a.id)?"open":""}><summary><span>${esc(a.name)}</span><span class="mute" id="as-${a.id}">${sc.score===null?"Sin puntuar":sc.score+" / 5"} · ${ans}/${a.questions.length} respondidas</span></summary><div class="in">${qs}
+  <label class="lbl" style="max-width:320px">Puntuación del área (0 a 5)<select class="fi" data-k="sc|${a.id}|score"><option value="">Sin puntuar</option>${[0,1,2,3,4,5].map(n=>`<option value="${n}" ${sc.score===n?"selected":""}>${n} · ${SCALE[n]}</option>`).join("")}</select></label>
+  <label class="lbl" style="margin-top:10px">Justificación de la puntuación *<textarea class="fi" rows="2" maxlength="1000" data-k="sc|${a.id}|note">${esc(sc.note)}</textarea></label></div></details>`}).join("");
+}
+function tabDiag(s){
+ return `<div class="top"><p class="sub">Cada problema necesita su evidencia, sus consecuencias y una oportunidad de mejora.</p><button class="btn" data-a="st-item" data-kind="finding">Añadir problema</button></div>`+(s.findings.length?s.findings.map((f,i)=>`<div class="panel" style="margin-bottom:12px"><div class="top"><b>#${i+1} · ${esc(areaName(f.area))}</b><span>${lvb(f.level)} <button class="btn sm sec" data-a="st-item" data-kind="finding" data-id="${f.id}">Editar</button></span></div><p><b>Problema:</b> ${nl(f.problem)}</p><p><b>Evidencia:</b> ${nl(f.evidence)}</p><p><b>Consecuencias:</b> ${nl(f.consequence)}</p><p><b>Oportunidad de mejora:</b> ${nl(f.opportunity)}</p></div>`).join(""):`<div class="panel empty">Aún no hay problemas registrados.</div>`);
+}
+function tabPlan(s){
+ const num=id=>{const i=s.findings.findIndex(f=>f.id===id);return i<0?"—":"#"+(i+1)};
+ return `<div class="top"><p class="sub">Cada acción responde a un problema del diagnóstico y lleva un indicador de seguimiento.</p><button class="btn" data-a="st-item" data-kind="action">Añadir acción</button></div>`+(s.actions.length?`<table><thead><tr><th>Prioridad</th><th>Solución propuesta</th><th>Problema</th><th>Dificultad</th><th>Indicador</th><th>Estado</th><th></th></tr></thead><tbody>${s.actions.map(a=>`<tr><td data-l="Prioridad">${esc(a.priority)}</td><td>${nl(a.solution)}</td><td data-l="Problema">${num(a.finding)}</td><td data-l="Dificultad">${esc(a.difficulty)}</td><td data-l="Indicador">${esc(a.kpi)}${a.target?`<small style="display:block;color:var(--mute)">Objetivo: ${esc(a.target)}</small>`:""}</td><td data-l="Estado">${esc(a.status)}</td><td><div class="acts"><button class="btn sm sec" data-a="st-item" data-kind="action" data-id="${a.id}">Editar</button></div></td></tr>`).join("")}</tbody></table>`:`<div class="panel empty">Aún no hay acciones en el plan.</div>`);
+}
+function tabConc(s){
+ return `<div class="panel"><h2>Conclusiones y recomendaciones</h2><p class="sub">Escríbelas tú: el informe las incluye tal cual, junto al resumen calculado automáticamente.</p>
+ <label class="lbl">Conclusiones del estudio *<textarea class="fi" rows="6" maxlength="3000" data-k="cn|summary">${esc(s.conclusions.summary)}</textarea></label>
+ <label class="lbl" style="margin-top:12px">Recomendaciones *<textarea class="fi" rows="6" maxlength="3000" data-k="cn|recommendations">${esc(s.conclusions.recommendations)}</textarea></label></div>`;
+}
+
+/* ---------- Edición de campos (se guarda al escribir) ---------- */
+const LIMK={name:120,activity:200,location:120,services:600};
+function onField(el){
+ const s=curStudy();if(!s)return;
+ const p=el.dataset.k.split("|"),t=p[0],v=el.value;
+ if(t==="co"){
+  if(!Object.prototype.hasOwnProperty.call(LIMK,p[1]))return;const val=clean(v,LIMK[p[1]]);
+  if(p[1]!=="services"&&!val){el.setAttribute("aria-invalid","true");return}
+  el.removeAttribute("aria-invalid");s.company[p[1]]=val;
+ }else if(t==="meta"){
+  if(p[1]==="date"){if(!okDate(v)){el.setAttribute("aria-invalid","true");return}el.removeAttribute("aria-invalid");s.meta.date=v}
+  else if(p[1]==="analyst")s.meta.analyst=clean(v,80);else return;
+ }else if(t==="q"){
+  if(!s.protocol.areas.some(a=>a.questions.some(q=>q.id===p[1]))||!["value","level","source"].includes(p[2]))return;
+  const a=s.answers[p[1]]||(s.answers[p[1]]={value:"",level:"",source:""});
+  a[p[2]]=p[2]==="level"?(LEVELS.includes(v)?v:""):clean(v,p[2]==="source"?200:1500);
+ }else if(t==="sc"){
+  const x=s.scores[p[1]];if(!x)return;
+  if(p[2]==="score")x.score=/^[0-5]$/.test(v)?+v:null;else if(p[2]==="note")x.note=clean(v,1000);else return;
+ }else if(t==="cn"){
+  if(p[1]!=="summary"&&p[1]!=="recommendations")return;s.conclusions[p[1]]=clean(v,3000);
+ }else return;
+ touch(s);stMeta(s);
+}
+function stMeta(s){
+ const k=calc(s),I=issues(s),set=(id,t)=>{const e=$("#"+id);if(e)e.textContent=t};
+ set("st-avg",avgTxt(k));const pl=$("#st-pill");if(pl){pl.textContent=s.status;pl.className="pill "+(s.status==="Completado"?"s3":"s1")}const ac=$("#st-acts");if(ac)ac.innerHTML=actsHTML(s);set("st-n",I.errors.length);set("st-w",I.warnings.length);
+ const b=$("#st-iss");if(b)b.innerHTML=issHTML(I);
+ k.areas.forEach(a=>{const ans=s.protocol.areas.find(x=>x.id===a.id).questions.filter(q=>s.answers[q.id]&&s.answers[q.id].value).length;set("as-"+a.id,(a.score===null?"Sin puntuar":a.score+" / 5")+" · "+ans+"/"+a.nq+" respondidas")});
+}
+document.addEventListener("input",e=>{
+ const t=e.target;
+ if(t.dataset&&t.dataset.k)onField(t);
+ if(t.id==="stq"){ST.q=t.value;render();const i=$("#stq");i.focus();i.setSelectionRange(i.value.length,i.value.length)}
+});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.k)onField(t);if(t.id==="stfs"){ST.fs=t.value;render()}});
+document.addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.area){if(d.open)ST.open.add(d.dataset.area);else ST.open.delete(d.dataset.area)}},true);
+
+/* ---------- Diálogo genérico: estudio, dato, problema, acción ---------- */
+const SCH={
+ study:{title:"estudio",fields:[["name","Nombre de la empresa","text",1,120],["activity","Actividad de la empresa","text",1,200],["location","Ubicación (localidad y provincia)","text",1,120]]},
+ datum:{title:"dato relevante",list:"data",fields:[["label","Dato (ej.: nº de empleados, años de actividad)","text",1,80],["value","Valor","text",1,200],["level","Nivel de evidencia","level",1],["source","Fuente o forma de comprobación (obligatoria si es Comprobado)","text",0,200,"Comprobado"]]},
+ finding:{title:"problema detectado",list:"findings",fields:[["area","Área de evaluación","area",1],["problem","Problema detectado","textarea",1,600],["level","Nivel de evidencia","level",1],["evidence","Evidencia (qué se vio y qué dato o documento lo respalda)","textarea",1,1000],["consequence","Consecuencias para el negocio","textarea",1,1000],["opportunity","Oportunidad de mejora","textarea",1,1000]]},
+ action:{title:"acción del plan",list:"actions",fields:[["finding","Problema al que responde","fi",1],["solution","Solución propuesta","textarea",1,800],["priority","Prioridad","pr",1],["difficulty","Dificultad","df",1],["kpi","Indicador de seguimiento","text",1,300],["target","Objetivo o meta del indicador (opcional)","text",0,300],["status","Estado","as",0]]}
+};
+function fieldHTML(f,val,s){
+ const k=f[0],l=f[1],t=f[2],req=f[3],max=f[4],id="if-"+k,ph=`<option value="">Selecciona…</option>`;let el;
+ if(t==="textarea")el=`<textarea id="${id}" rows="3" maxlength="${max||1500}">${esc(val)}</textarea>`;
+ else if(t==="text")el=`<input id="${id}" maxlength="${max||200}" value="${esc(val)}">`;
+ else{
+  const L=t==="level"?LEVELS.map(x=>[x,x]):t==="area"?AREAS:t==="pr"?PRIORITY.map(x=>[x,x]):t==="df"?DIFFICULTY.map(x=>[x,x]):t==="as"?ASTATUS.map(x=>[x,x]):s.findings.map((x,i)=>[x.id,"#"+(i+1)+" · "+x.problem.slice(0,70)]);
+  el=`<select id="${id}">${ph}${L.map(o=>`<option value="${esc(o[0])}" ${o[0]===val?"selected":""}>${esc(o[1])}</option>`).join("")}</select>`;
+ }
+ return `<label class="full">${esc(l)}${req?" *":""}${el}<span class="ferr" id="ie-${k}"></span></label>`;
+}
+function openItem(kind,id){
+ const s=curStudy(),sc=SCH[kind];
+ if(kind!=="study"&&!s)return;
+ if(kind==="action"&&!s.findings.length){toast("Registra primero al menos un problema en el diagnóstico.",1);return}
+ const cur=kind!=="study"&&id?s[sc.list].find(x=>x.id===id):null;
+ if(id&&kind!=="study"&&!cur)return;
+ ITEM={kind,id:cur?cur.id:null};
+ $("#dit-t").textContent=kind==="study"?"Nuevo estudio":(cur?"Editar ":"Añadir ")+sc.title;
+ $("#dit-fields").innerHTML=sc.fields.map(f=>fieldHTML(f,cur?cur[f[0]]:(f[0]==="status"?"Pendiente":""),s)).join("");
+ $("#dit-del").hidden=!cur;$("#dit-ok").textContent=kind==="study"?"Crear estudio":"Guardar";
+ $("#dit").showModal();$("#"+"if-"+sc.fields[0][0]).focus();
+}
+$("#dit-f").addEventListener("submit",e=>{
+ e.preventDefault();if(!ITEM)return;
+ const sc=SCH[ITEM.kind],s=curStudy(),v={};let bad=null;
+ sc.fields.forEach(f=>{const el=$("#if-"+f[0]);v[f[0]]=clean(el.value,f[4]||300);$("#ie-"+f[0]).textContent="";el.removeAttribute("aria-invalid")});
+ sc.fields.forEach(f=>{
+  let msg="";
+  if(f[3]&&!v[f[0]])msg="Este campo es obligatorio.";
+  else if(f[5]&&v.level===f[5]&&!v[f[0]])msg="Es obligatorio cuando el nivel es «"+f[5]+"».";
+  if(msg){$("#ie-"+f[0]).textContent=msg;$("#if-"+f[0]).setAttribute("aria-invalid","true");bad=bad||f[0]}
+ });
+ if(bad){$("#if-"+bad).focus();return}
+ if(ITEM.kind==="study"){
+  const ns=normStudy({id:uid(),status:"Borrador",company:{name:v.name,activity:v.activity,location:v.location,services:""},meta:{date:iso(new Date())},protocol:protocol});
+  studies.unshift(ns);stSave(true);$("#dit").close();ST.mode="edit";ST.id=ns.id;ST.tab="ficha";ST.open=new Set();render();toast("Estudio creado");return;
+ }
+ if(ITEM.kind==="action"&&!v.status)v.status="Pendiente";
+ const list=s[sc.list],it=ITEM.id?list.find(x=>x.id===ITEM.id):null;
+ if(it)Object.assign(it,v);else list.push(Object.assign({id:uid()},v));
+ touch(s);$("#dit").close();render();toast("Guardado");
+});
+
+/* ---------- Acciones de la interfaz ---------- */
+function stAct(a,b){
+ const id=b.dataset.id,s=curStudy();
+ switch(a){
+  case "st-new":openItem("study");break;
+  case "st-open":ST.mode="edit";ST.id=id;ST.tab="ficha";ST.pend=false;ST.open=new Set();render();scrollTo(0,0);break;
+  case "st-back":flushSave();ST.mode="list";render();break;
+  case "st-tab":ST.tab=b.dataset.t;render();break;
+  case "st-del":{const x=studies.find(i=>i.id===id);if(x&&confirm("¿Eliminar el estudio de «"+x.company.name+"»? No se puede deshacer. Exporta antes una copia si la necesitas.")){studies=studies.filter(i=>i.id!==id);stSave(true);render();toast("Estudio eliminado")}break}
+  case "st-item":openItem(b.dataset.kind,id);break;
+  case "st-idel":{
+   if(!ITEM||!ITEM.id||!s)break;const sc=SCH[ITEM.kind];
+   const linked=ITEM.kind==="finding"?s.actions.filter(x=>x.finding===ITEM.id).length:0;
+   if(!confirm("¿Eliminar este elemento?"+(linked?" También se eliminarán "+linked+" acciones asociadas.":"")))break;
+   s[sc.list]=s[sc.list].filter(x=>x.id!==ITEM.id);
+   if(ITEM.kind==="finding")s.actions=s.actions.filter(x=>x.finding!==ITEM.id);
+   touch(s);$("#dit").close();render();break}
+  case "st-complete":{
+   if(!s)break;const I=issues(s);
+   if(I.errors.length){ST.pend=true;render();toast("Faltan "+I.errors.length+" elementos para completar el estudio.",1)}
+   else{s.status="Completado";s.completedAt=ts();s.updatedAt=ts();stSave(true);render();toast("Estudio completado")}
+   break}
+  case "st-reopen":if(s){s.status="Borrador";s.completedAt="";s.updatedAt=ts();stSave(true);render()}break;
+  case "st-report":openReport(id||(s&&s.id));break;
+  case "st-dl":downloadReport();break;
+  case "st-print":printReport();break;
+  case "st-export":exportStudies();break;
+  case "st-import":ST.imp="studies";$("#stfile").click();break;
+  case "st-pexport":exportProtocol();break;
+  case "st-pimport":ST.imp="protocol";$("#stfile").click();break;
+ }
+}
+
+/* ---------- Informe ---------- */
+const repStyle=document.createElement("style");repStyle.textContent=REPORT_CSS;document.head.appendChild(repStyle);
+function openReport(id){const s=studies.find(x=>x.id===id);if(!s)return;ST.rid=id;$("#drp-body").innerHTML=reportHTML(s);$("#drp").showModal();$("#drp").scrollTop=0}
+const reportDoc=s=>`<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>${esc("Informe · "+s.company.name)}</title><style>body{margin:24px auto;max-width:900px;padding:0 20px}${REPORT_CSS}</style></head><body><div class="rep">${reportHTML(s)}</div></body></html>`;
+function saveFile(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+function downloadReport(){
+ const s=studies.find(x=>x.id===ST.rid);if(!s)return;
+ const slug=s.company.name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"-").replace(/^-|-$/g,"").toLowerCase().slice(0,40)||"empresa";
+ saveFile("informe-"+slug+"-"+iso(new Date())+(s.status==="Completado"?"":"-borrador")+".html",reportDoc(s),"text/html");
+}
+function printReport(){
+ const s=studies.find(x=>x.id===ST.rid);if(!s)return;
+ const f=document.createElement("iframe");f.setAttribute("sandbox","allow-same-origin allow-modals");f.style.cssText="position:fixed;width:0;height:0;border:0;visibility:hidden";
+ f.onload=()=>{try{f.contentWindow.focus();f.contentWindow.print()}catch(e){toast("No se pudo abrir la impresión. Descarga el informe (HTML) y ábrelo para imprimirlo.",1)}setTimeout(()=>f.remove(),60000)};
+ f.srcdoc=reportDoc(s);document.body.appendChild(f);
+}
+
+/* ---------- Exportar e importar (estudios y protocolo) ---------- */
+function exportStudies(){saveFile("leadflow-estudios-"+iso(new Date())+".json",JSON.stringify({app:"LeadFlow Recovery",kind:"studies",version:1,exportedAt:ts(),studies},null,2),"application/json");toast("Exportados "+studies.length+" estudios")}
+function exportProtocol(){saveFile("leadflow-protocolo-"+protocol.version+".json",JSON.stringify({app:"LeadFlow Recovery",kind:"protocol",version:protocol.version,name:protocol.name,origin:protocol.origin,areas:protocol.areas},null,2),"application/json");toast("Protocolo exportado")}
+function importStudies(text){
+ const j=pj(text),arr=Array.isArray(j)?j:(j&&Array.isArray(j.studies)?j.studies:null);
+ if(!arr)throw new Error("no contiene una lista de estudios.");
+ if(j&&!Array.isArray(j)&&j.kind!==undefined&&j.kind!=="studies")throw new Error("el archivo no es una exportación de estudios.");
+ if(arr.length>500)throw new Error("hay más de 500 estudios.");
+ const list=normStudies(arr);if(!list.length)throw new Error("no contiene ningún estudio válido (cada uno necesita nombre de empresa y un protocolo completo).");
+ const have=new Set(studies.map(x=>x.id)),upd=list.filter(x=>have.has(x.id)).length,drop=arr.length-list.length;
+ if(!confirm("Se añadirán "+(list.length-upd)+" estudios y se sustituirán "+upd+" que ya existen (mismo identificador)."+(drop?" Se descartarán "+drop+" registros sin datos válidos.":"")+" ¿Continuar?"))return;
+ const ids=new Set(list.map(x=>x.id));studies=studies.filter(x=>!ids.has(x.id)).concat(list);stSave(true);render();toast("Estudios importados");
+}
+function importProtocol(text){
+ const p=normProtocol(pj(text));
+ if(!p)throw new Error("el protocolo debe incluir las 8 áreas (captacion, digital, recepcion, cualificacion, presupuestos, seguimiento, conversion, medicion), cada una con preguntas con identificador único y texto.");
+ const n=p.areas.reduce((t,a)=>t+a.questions.length,0);
+ if(!confirm("Se usará «"+p.name+"» (versión "+p.version+", "+n+" preguntas) en los NUEVOS estudios. Los estudios existentes conservan su protocolo. ¿Continuar?"))return;
+ try{localStorage.setItem(PK,JSON.stringify(p))}catch(e){throw new Error("no se pudo guardar en este navegador.")}
+ protocol=p;render();toast("Protocolo importado");
+}
+$("#stfile").addEventListener("change",e=>{
+ const f=e.target.files[0],mode=ST.imp;e.target.value="";if(!f)return;
+ if(f.size>5*1024*1024){toast("Importación cancelada: el archivo supera los 5 MB.",1);return}
+ const r=new FileReader();
+ r.onload=()=>{try{mode==="protocol"?importProtocol(String(r.result)):importStudies(String(r.result))}catch(err){toast("Importación cancelada: "+err.message,1)}};
+ r.onerror=()=>toast("No se pudo leer el archivo.",1);
+ r.readAsText(f);
+});
+stLoad();
+
+render();
+</script>
 </body>
 </html>
