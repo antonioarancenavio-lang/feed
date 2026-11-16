@@ -109,27 +109,40 @@ dialog::backdrop{background:#0006}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* Corrección: desplegables de los formularios */
-.field {
+
+/* Corrección del desplegable de tipo de reforma */
+.formcard {
   position: relative;
-  z-index: 1;
+  z-index: 30;
+  overflow: visible;
 }
 
-.field:focus-within {
-  z-index: 100;
-}
-
-.field select {
-  position: relative;
-  z-index: 101;
-  width: 100%;
-  background-color: #fff;
-  color: #1f2a33;
-}
-
-/* Evitar que el formulario recorte los desplegables */
-.formcard,
 .formcard form,
 .fgrid {
   overflow: visible;
 }
+
+.field {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.field:focus-within {
+  z-index: 9999;
+}
+
+.field select {
+  position: relative;
+  width: 100%;
+  min-height: 58px;
+  background: #fff;
+  color: #1f2a33;
+  appearance: auto;
+}
+
+.field select option {
+  background: #fff;
+  color: #1f2a33;
+}
+
