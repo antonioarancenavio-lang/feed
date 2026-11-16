@@ -108,3 +108,28 @@ dialog::backdrop{background:#0006}
  td{border:0;padding:3px 0}td[data-l]::before{content:attr(data-l)": ";color:var(--mute);font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Corrección: desplegables de los formularios */
+.field {
+  position: relative;
+  z-index: 1;
+}
+
+.field:focus-within {
+  z-index: 100;
+}
+
+.field select {
+  position: relative;
+  z-index: 101;
+  width: 100%;
+  background-color: #fff;
+  color: #1f2a33;
+}
+
+/* Evitar que el formulario recorte los desplegables */
+.formcard,
+.formcard form,
+.fgrid {
+  overflow: visible;
+}
