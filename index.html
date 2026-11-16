@@ -56,7 +56,18 @@
     <div class="field"><label for="f-name">Nombre <i>*</i></label><input id="f-name" autocomplete="name" maxlength="100" aria-describedby="e-name" placeholder="Ej.: Carmen Ficticia"><p class="err" id="e-name"></p></div>
     <div class="field"><label for="f-phone">Teléfono <i>*</i></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="e-phone" placeholder="Ej.: 600 000 001"><p class="err" id="e-phone"></p></div>
     <div class="field"><label for="f-city">Localidad <i>*</i></label><input id="f-city" autocomplete="address-level2" maxlength="80" aria-describedby="e-city" placeholder="Ej.: Ciudad Ejemplo"><p class="err" id="e-city"></p></div>
-    <div class="field"><label for="f-type">Tipo de reforma <i>*</i></label><select id="f-type" aria-describedby="e-type"></select><p class="err" id="e-type"></p></div>
+   
+<div class="field">
+  <label for="f-type">Tipo de reforma <i>*</i></label>
+  <select id="f-type" aria-describedby="e-type">
+    <option value="">Selecciona…</option>
+    <option value="Reforma de baño">Reforma de baño</option>
+    <option value="Reforma de cocina">Reforma de cocina</option>
+    <option value="Reforma integral">Reforma integral</option>
+  </select>
+  <p class="err" id="e-type"></p>
+</div>
+
     <div class="field full"><label for="f-desc">Descripción del proyecto <i>*</i></label><textarea id="f-desc" maxlength="1000" aria-describedby="e-description cnt" placeholder="Medidas aproximadas, qué quieres cambiar, estilo que te gusta…"></textarea><div class="hint"><span class="err" id="e-description"></span><span id="cnt">0/1000</span></div></div>
     <div class="field full"><label for="f-time">Plazo aproximado para realizar la reforma <i>*</i></label><select id="f-time" aria-describedby="e-timeframe"></select><p class="err" id="e-timeframe"></p></div>
     <div class="field full" style="position:absolute;left:-9999px" aria-hidden="true"><label>No rellenar<input id="f-web" tabindex="-1" autocomplete="off"></label></div>
